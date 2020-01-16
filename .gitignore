@@ -1,0 +1,5 @@
+# LaTeX files for testing
+test.*
+
+# output
+*.otf
