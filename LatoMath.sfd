@@ -74,9 +74,9 @@ Lookup: 258 0 0 "'kern' Horizontal Kerning in Latin lookup 0" { "'kern' Horizont
 MarkAttachClasses: 1
 DEI: 91125
 LangName: 1033
-OtfFeatName: 'ss08' 1033 "Upright Integrals"
-OtfFeatName: 'ss09' 1033 "Negated Symbols With Vertical Stroke"
 OtfFeatName: 'ss10' 1033 "Plank constant over two pi, with a bar"
+OtfFeatName: 'ss09' 1033 "Negated Symbols With Vertical Stroke"
+OtfFeatName: 'ss08' 1033 "Upright Integrals"
 MATH:ScriptPercentScaleDown: 75
 MATH:ScriptScriptPercentScaleDown: 60
 MATH:DelimitedSubFormulaMinHeight: 1500
@@ -96246,6 +96246,7 @@ StartChar: u1D538
 Encoding: 120120 120120 3012
 Width: 818
 Flags: HW
+TopRightVertex: 1  400,-150
 LayerCount: 2
 Fore
 SplineSet
@@ -96440,6 +96441,7 @@ StartChar: u1D53D
 Encoding: 120125 120125 3017
 Width: 571
 Flags: HW
+BottomRightVertex: 1  0,-100
 LayerCount: 2
 Fore
 SplineSet
