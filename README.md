@@ -8,7 +8,7 @@ Some of the glyphs and source files are adapted from
 [STIX Two](https://www.stixfonts.org/), and
 [Fira Math](https://github.com/firamath/firamath).
 
-![Lato Math](https://www.bananaspace.net/uploads/28423489/4dc906f2b646415cbcc4955429f374e7.png)
+![Lato Math](https://user-images.githubusercontent.com/23280392/199365551-d8fb3a9e-e804-4ccf-9070-2c25e04dd1e8.png)
 
 ## To build
 
