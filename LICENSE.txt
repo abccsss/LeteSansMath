@@ -1,7 +1,8 @@
 Copyright (c) 2010-2019, Łukasz Dziedzic (dziedzic@typoland.com),
 with Reserved Font Name Lato.
 Copyright (c) 2018-2021, Xiangdong Zeng <xdzeng96@gmail.com>.
-Copyright (c) 2020-2023, Chenjing Bu <buchenjing@gmail.com>.
+Copyright (c) 2020-2024, Chenjing Bu <buchenjing@gmail.com>.
+Copyright (c) 2024, Daniel Flipo <daniel.flipo@free.fr>
 
 This Font Software is licensed under the SIL Open Font License, Version 1.1.
 This license is copied below, and is also available with a FAQ at:

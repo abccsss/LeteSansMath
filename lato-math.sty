@@ -1,0 +1,160 @@
+\NeedsTeXFormat{LaTeX2e}[2022/06/01]
+\def\fileversion{0.36}
+\def\filedate{2024-03-14}
+\ProvidesPackage{lato-math}[\filedate\space\fileversion]
+
+%Ensure luatex or xetex engine
+\RequirePackage{iftex}[2019/10/24]
+\RequireTUTeX
+\RequirePackage{unicode-math}
+
+\newopentypefeature{Style}{leqslant}{+ss04}
+\newopentypefeature{Style}{smaller}{+ss05}
+\newopentypefeature{Style}{subsetneq}{+ss06}
+\newopentypefeature{Style}{parallelslant}{+ss07}
+\newopentypefeature{Style}{upint}{+ss08}
+\newopentypefeature{Style}{upneg}{+ss09}
+
+\newtoks\LatoMtoks
+\newcommand*{\Latostore@KV@Option}[2]{%
+  \LatoMtoks=\expandafter{\the\LatoMtoks #1={#2},}}
+
+% Package options:
+\DeclareKeys
+  {
+   tight.if              = Lato@tight                                 ,
+   loose.code            = \Lato@tightfalse                           ,
+   fulloldstyle.code     = \Latostore@KV@Option{Numbers}{OldStyle}    ,
+   math-style.code       = \Latostore@KV@Option{math-style}{#1}       ,
+   bold-style.code       = \Latostore@KV@Option{bold-style}{#1}       ,
+   nabla.code            = \Latostore@KV@Option{nabla}{#1}            ,
+   partial.code          = \Latostore@KV@Option{partial}{#1}          ,
+   CharacterVariant.code = \Latostore@KV@Option{CharacterVariant}{#1} ,
+   StylisticSet.code     = \Latostore@KV@Option{StylisticSet}{#1}     ,
+   Style.code            = \Latostore@KV@Option{Style}{#1}            ,
+   Scale.code            = \Latostore@KV@Option{Scale}{#1}
+  }
+%
+\ProcessKeyOptions
+%
+% Math fonts: LatoMath.otf
+% Following Joseph Wright in https://tex.stackexchange.com/questions/451
+\Latostore@KV@Option{BoldFont}{LatoMath-Bold.otf}
+\begingroup
+  \edef\temp{%
+    \endgroup
+    \noexpand\setmathfont{LatoMath.otf}%
+    [\unexpanded\expandafter{\the\LatoMtoks}]%
+  }
+  \temp
+%
+\ifLato@tight
+  \thinmuskip=2mu
+  \medmuskip=2.5mu plus 1mu minus 2.5mu
+  \thickmuskip=3.5mu plus 2.5mu
+\fi
+
+\AtBeginDocument{%
+  % LatoMath specific
+  % \Umathchardef\<cmd> = <math type> <family> <slot>
+  % <math type> : \mathord=0 \mathrel=3 ; <family>=0
+  \Umathchardef\mbfimath =            0 0 "E041 \relax
+  \Umathchardef\mbfjmath =            0 0 "E042 \relax
+  \Umathchardef\mbfdotlessi =         0 0 "E043 \relax
+  \Umathchardef\mbfdotlessj =         0 0 "E044 \relax
+  \Umathchardef\mithbar =             0 0 "E048 \relax
+  \Umathchardef\varemptyset =         0 0 "E04F \relax
+  \Umathchardef\BbbDelta =            0 0 "E050 \relax
+  \Umathchardef\BbbTheta =            0 0 "E051 \relax
+  \Umathchardef\BbbLambda =           0 0 "E052 \relax
+  \Umathchardef\BbbXi =               0 0 "E053 \relax
+  \Umathchardef\BbbSigma =            0 0 "E054 \relax
+  \Umathchardef\BbbPhi =              0 0 "E055 \relax
+  \Umathchardef\BbbPsi =              0 0 "E056 \relax
+  \Umathchardef\BbbOmega =            0 0 "E057 \relax
+  \Umathchardef\lesseqslantgtr =      3 0 "E060 \relax
+  \Umathchardef\gtreqslantless =      3 0 "E061 \relax
+  \Umathchardef\lesseqqslantgtr =     3 0 "E062 \relax
+  \Umathchardef\gtreqqslantless =     3 0 "E063 \relax
+  \Umathchardef\nleqqslant =          3 0 "E066 \relax
+  \Umathchardef\ngeqqslant =          3 0 "E067 \relax
+  \Umathchardef\parallelslant  =      3 0 "E080 \relax
+  \Umathchardef\nparallelslant =      3 0 "E081 \relax
+  \Umathchardef\shortparallelslant =  3 0 "E082 \relax
+  \Umathchardef\nshortparallelslant = 3 0 "E083 \relax
+  \Umathchardef\mapstochar =          3 0 "E08D \relax
+  \Umathchardef\lhook =               3 0 "E08E \relax
+  \Umathchardef\rhook =               3 0 "E08F \relax
+  % amssymb
+  \@ifpackageloaded{amssymb}%
+    {\PackageWarning{lato-otf}{%
+       LatoMath provides all AMS symbols.\MessageBreak
+       Loading amssymb.sty is not advisable.\MessageBreak
+       Reported}%
+    }%
+    {% AMS Symbols not referenced in unicode-math-table.tex
+     % \Umathchardef\<cmd> = <math type> <family> <slot>
+     % <math type> : \mathord=0 \mathrel=3 ; <family>=0
+     \Umathchardef\circledR =       0 0 "24C7 \relax
+     \Umathchardef\circledS =       0 0 "24C8 \relax
+     \Umathchardef\diagup =         0 0 "27CB \relax
+     \Umathchardef\diagdown =       0 0 "27CD \relax
+     \Umathchardef\lvertneqq =      3 0 "E002 \relax
+     \Umathchardef\gvertneqq =      3 0 "E003 \relax
+     \Umathchardef\varsubsetneq =   3 0 "E006 \relax
+     \Umathchardef\varsupsetneq =   3 0 "E007 \relax
+     \Umathchardef\varsubsetneqq =  3 0 "E015 \relax
+     \Umathchardef\varsupsetneqq =  3 0 "E016 \relax
+     \Umathchardef\shortmid =       3 0 "E070 \relax
+     \Umathchardef\shortparallel =  3 0 "E071 \relax
+     \Umathchardef\nshortmid =      3 0 "E072 \relax
+     \Umathchardef\nshortparallel = 3 0 "E073 \relax
+     \Umathchardef\nleqslant =      3 0 "E076 \relax
+     \Umathchardef\ngeqslant =      3 0 "E077 \relax
+     \Umathchardef\nleqq =          3 0 "E078 \relax
+     \Umathchardef\ngeqq =          3 0 "E079 \relax
+     \Umathchardef\npreceq =        3 0 "E07C \relax
+     \Umathchardef\nsucceq =        3 0 "E07D \relax
+     \Umathchardef\nsubseteqq =     3 0 "E07E \relax
+     \Umathchardef\nsupseteqq =     3 0 "E07F \relax
+     \let\centerdot\cdotp
+     \let\restriction\upharpoonright
+     \let\doteqdot\Doteq
+     \let\doublecup\Cup
+     \let\doublecap\Cap
+     \let\llless\lll
+     \let\gggtr\ggg
+     \let\circlearrowleft\acwopencirclearrow
+     \let\circlearrowright\cwopencirclearrow
+     \let\lozenge\mdlgwhtlozenge
+     \let\blacklozenge\mdlgblklozenge
+     \let\square\mdlgwhtsquare
+     \let\blacksquare\mdlgblksquare
+     \let\dashleftarrow\leftdasharrow
+     \let\dashrightarrow\rightdasharrow
+     \let\ntriangleleft\nvartriangleleft
+     \let\ntriangleright\nvartriangleright
+     \let\varpropto\propto
+     \let\thicksim\sim
+     \let\thickapprox\approx
+     \let\smallsmile\smile
+     \let\smallfrown\frown
+    }%
+  % latexsym
+  \@ifpackageloaded{latexsym}%
+    {\PackageWarning{lato-otf}{%
+       LatoMath provides all LaTeX symbols.\MessageBreak
+       Loading latexsym.sty is not advisable.\MessageBreak
+       Reported}%
+    }%
+    {\let\lhd\vartriangleleft
+     \let\rhd\vartriangleright
+     \let\unlhd\trianglelefteq
+     \let\unrhd\trianglerighteq
+     \let\leadsto\rightcurvedarrow
+     \let\Box\lgwhtsquare
+     \let\Diamond\mdlgwhtdiamond
+    }%
+}
+
+\endinput

@@ -1,38 +1,57 @@
 # Lato Math
 
-__Lato Math__ is a sans-serif math font,
+__Lato Math__ is an OpenType sans-serif math font,
 based on the
 [Lato](https://github.com/latofonts/lato-source) font.
-Some of the glyphs and source files are adapted from
-[XITS](https://github.com/alif-type/xits),
-[STIX Two](https://www.stixfonts.org/), and
-[Fira Math](https://github.com/firamath/firamath).
 
-![Lato Math](https://user-images.githubusercontent.com/23280392/199365551-d8fb3a9e-e804-4ccf-9070-2c25e04dd1e8.png)
+![Lato Math](https://github.com/abccsss/LatoMath/assets/23280392/49a23583-f63c-45ba-83cd-ec4cdfc6d1a1)
 
-## To build
+This repository contains the content of the LaTeX package `lato-math`,
+including OpenType font files, LaTeX style files, and documentation.
+You can also view the package on
+[CTAN](https://ctan.org/pkg/lato-math).
 
-1. Install FontForge.
-2. Run `ffpython build.py`.
+## Contents
 
-This will generate a file `LatoMath.otf` in the project root directory.
+* `LatoMath.otf`
+	— The OpenType font file.
+* `LatoMath-Bold.otf`
+	— The OpenType font file for the bold variant (limited coverage).
+* `lato-math.sty`
+	— The LaTeX style file.
+* `LatoMath.pdf`
+	— Documentation of the package.
+* `LatoMath.ltx`
+	— The LaTeX source of `LatoMath.pdf`.
+* `unimath-lato.pdf`
+	— A modified version of `unimath-symbols.pdf`
+	from the `unicode-math` package,
+	showing available Lato Math symbols compared
+	to other sans-serif math fonts.
+* `unimath-lato.ltx`
+	— The LaTeX source of `unimath-lato.pdf`.
 
-## To use with LaTeX
+## Usage
 
-1. Copy `LatoMath.otf` to your LaTeX project directory.
-2. Add the following lines to the preamble.
-    ```latex
-    \usepackage{unicode-math}
-    \setmathfont{[LatoMath.otf]}
-    ```
-3. Build with `xelatex`.
+This package is meant to be installed automatically by TeX Live, MikTeX, etc. Use
+```latex
+\usepackage{lato-math}
+```
+to load the package.
+The package requires XeLaTeX or LuaLaTeX to compile.
+For more information such as package options,
+see the documentation `LatoMath.pdf`.
 
-## Glyph coverage
+To load the package manually, place the files
+`lato-math.sty`, `LatoMath.otf`, and `LatoMath-Bold.otf`
+in your project directory,
+and use the same call as above.
 
-* Latin letters: roman, italic, bold, bold italic, double-struck, monospace.
+It is also possible to use the font without the `lato-math` package.
+See the documentation `LatoMath.pdf` for details.
 
-* Greek letters: roman, italic, bold, bold italic.
+## Changes
 
-* Digits: roman, bold, double-struck, monospace.
+### v0.36 (2024-03-15)
 
-* All commonly used mathematical symbols.
+* First public release.

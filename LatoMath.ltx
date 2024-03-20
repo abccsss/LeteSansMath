@@ -1,0 +1,682 @@
+\DocumentMetadata{pdfstandard=A-2b, lang=en-GB}
+\documentclass[a4paper,12pt]{scrartcl}
+
+\usepackage{mathtools, array, varioref}
+\usepackage[british]{babel}
+\usepackage{fourier-orns}
+\usepackage[default,defaultsans]{lato}
+\usepackage{realscripts}
+\usepackage{lato-math}
+\setmonofont{Inconsolatazi4}[Scale=MatchLowercase,
+                             HyphenChar=None,StylisticSet={2,3}]
+\usepackage{subfig}
+\captionsetup[subtable]{position=top}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{pdftitle={Lato Math User’s Guide},
+            pdfauthor={Chenjing Bu \& Daniel Flipo},
+            bookmarksopen,
+            colorlinks
+            }
+\newcommand*{\hlabel}[1]{\phantomsection\label{#1}}
+
+\newcommand*{\LAotf}{Lato~Math}
+\newcommand*{\pkg}[1]{\texttt{#1}}
+\newcommand*{\file}[1]{\texttt{#1}}
+\newcommand*{\opt}[1]{\texttt{#1}}
+\newcommand*{\cmd}[1]{\texttt{\textbackslash #1}}
+\newcommand*{\scmd}[1]{\texttt{\small\textbackslash #1}}
+\newcommand*{\showtchar}[1]{\cmd{#1}~\csname #1\endcsname}
+\newcommand*{\showmchar}[1]{\cmd{#1}~$(\csname #1\endcsname)$}
+\newcommand*{\showmchardollar}[1]{\texttt{\$\cmd{#1}\$}~$(\csname #1\endcsname)$}
+
+\renewcommand{\labelitemi}{\lefthand}
+
+\title{\decofourleft\,\LAotf\,\decofourright}
+\author{Chenjing Bu --- Daniel Flipo\\
+        \url{https://github.com/abccsss/LatoMath}}
+
+\newcommand*{\version}{0.36}
+\usepackage{setspace}
+\setstretch{1.10}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{12pt plus 3pt minus 3pt}
+
+\begin{document}
+\maketitle
+
+\section{What is \LAotf{}?}
+
+\LAotf{} is an OpenType maths font
+meant to be used with the Lato font, or other sans-serif text fonts.
+It requires LuaTeX or XeTeX as engine and the \pkg{unicode-math}
+package\footnote{Please read the documentation \file{unicode-math.pdf}.}.
+
+Please note that the current version (\version) is \emph{experimental,
+do expect metrics and glyphs to change} until version 1.0 is reached.
+Comments, suggestions and bug reports are welcome!
+
+Some examples%
+\footnote{The second one is borrowed from the LaTeX Companion,
+  3\textsuperscript{rd} edition.}:
+\[
+    \int_0^1 \frac{1}{x^x} \, \symup{d} x =
+    \sum_{n=1}^{\infty} \frac{1}{n^n}
+\]
+
+\begin{equation*} \begin{split}
+  \iiiint\limits_{\symbf{Q}}  f(w,x,y,z)\,\symup{d}w\,\symup{d}x\,\symup{d}y
+                                       \,\symup{d}z
+  &\leq \oint_{\symbf{\partial Q}} f'
+          \left( \max \left\lbrace
+            \frac{\lVert w \rVert}{\lvert w^{2} + x^{2} \rvert} ;
+            \frac{\lVert z \rVert}{\lvert y^{2} + z^{2} \rvert} ;
+            \frac{\lVert w \oplus z \rVert}{\lvert x \oplus y \rvert}
+           \right\rbrace \right)                                    \\
+  &\precapprox \biguplus_{\mathbb{Q} \Subset \bar{\symbf{Q}}}
+    \left[ f^{\ast}
+      \left(
+        \frac{\left\lmoustache\mathbb{Q}(t)\right\rmoustache}{\sqrt{1 - t^{2}}}
+      \right)
+    \right]_{t=\alpha}^{t=\vartheta} - ( \Delta + \nu -v )^{3}
+\end{split} \end{equation*}
+
+\section{Usage}
+
+\subsection{Calling \cmd{setmathfont}}
+
+A basic call for \LAotf{} would be:
+\begin{verbatim}
+\usepackage{unicode-math}
+\setmathfont{LatoMath.otf}  % Call by file name or
+\setmathfont{Lato Math}     % Call by font name
+\end{verbatim}
+this loads \LAotf{} as maths font%
+\footnote{Both calls work equally well with LuaTeX; with XeTeX a call by font
+  name will fail unless the font is declared as a \emph{system font}.}
+with the default options, see subsections~\vref{ssection-um},
+\vref{ssection-cv} and~\vref{ssection-ss} for customisation.
+
+%\enlargethispage*{1.0\baselineskip}
+Please note that the text fonts have to be chosen separately, f.i.:
+\label{sec:setfont}
+\begin{verbatim}
+\setsansfont{Lato}[Extension = .ttf,
+    UprightFont =     *-Regular,
+    BoldFont =        *-Bold,
+    ItalicFont =      *-Italic,
+    BoldItalicFont =  *-BoldItalic]
+\end{verbatim}
+otherwise you would get Latin Modern for text fonts.
+
+\subsection{Calling \pkg{lato-math.sty} (recommended)}
+
+As an alternative to load \LAotf{} you can type:\\[.5\baselineskip]
+\verb+\usepackage[ +\textit{options}
+\footnote{Possible \textit{options} are \opt{tight}, \opt{Scale=} or
+  any of the options described in sections~\ref{ssection-um},
+  \ref{ssection-cv} and \ref{ssection-ss}.}%
+\verb+ ]{lato-math}+\\[.5\baselineskip]
+it loads \pkg{unicode-math} with the default options, sets LatoMath
+as maths font and does a bit more:
+\begin{enumerate}
+\item it checks at \verb+\begin{document}+ if packages \pkg{amssymb} or
+  \pkg{latexsym} are loaded and issues warnings in case they are;
+\item it provides aliases for glyphs named differently in Unicode, so that
+  all \pkg{latexsym} or AMS commands are also available;
+\item it defines specific maths characters like \showmchar{BbbDelta},
+  \showmchar{parallelslant},
+  \showmchar{shortparallelslant}, etc.;
+\item it provides an option \opt{tight} which reduces spacing
+  (\cmd{thinmuskip}, \cmd{medmuskip} and \cmd{thickmuskip}) in maths mode.
+\end{enumerate}
+
+Please note that the \pkg{lato-math} package does not load any text fonts.
+The Lato text fonts can be loaded directly (see section~\ref{sec:setfont}),
+or via the \pkg{lato} package%
+\footnote{The \pkg{lato} package loads all available weights,
+  \texttt{Hairline} to \texttt{Black}, hence loading takes significantly
+  longer…}
+---see this package’s documentation, file \file{lato.pdf}, for all the
+available options: \\
+\verb+\usepackage[default]{lato}+\\
+will load the Lato text fonts as main (roman) font while \\
+\verb+\usepackage[defaultsans]{lato}+\\
+will load the Lato text fonts as sans font (use both options if necessary).
+Consider loading \pkg{realscripts.sty} which
+redefines \verb+\textsuperscript+ to output the \emph{real} superscripts
+available with the Lato fonts: M\textsuperscript{r}, M\textsuperscript{lle},
+N\textsuperscript{2} instead of \emph{faked} ones,
+M\fakesuperscript{r}, M\fakesuperscript{lle}, N\fakesuperscript{2}.
+
+The \pkg{lato-math} also provides a \opt{Scale=}\textsl{<decimal>} option
+meant to be used to load the \LAotf{} font together with text fonts other
+than Lato, while keeping the advantages 1. to~4. pointed in the preceding
+list, f.i.
+
+\verb+\usepackage[Scale=0.98]{lato-math}+
+
+
+\section{What is provided?}
+
+\LAotf{} provides all common \pkg{unicode-math} glyphs plus all glyphs
+available in the \pkg{amssymb} and \pkg{latexsym} packages.  Therefore,
+the latter two packages \emph{should not} be loaded as they might override
+\LAotf{} glyphs.
+
+A full list of available glyphs is shown in file \file{unimath-lato.pdf} which
+also shows the coverage of other sans-serif maths fonts compared to
+the serif maths fonts NewComputerModern and Cambria.
+
+\subsection{Upright or slanted?}
+\label{ssection-um}
+
+Package \pkg{unicode-math} follows \TeX{} conventions for Latin and Greek
+letters: in maths mode, the default option (\opt{math-style=TeX}) prints
+Latin letters $a$…$z$ $A$…$Z$ and lowercase Greek letters $\alpha$…$\omega$
+slanted (italic) while uppercase Greek letters $\Alpha \Beta \Gamma$…$\Omega$
+are printed upright.
+This can be changed by option \opt{math-style} as shown in
+table~\vref{math-style}.
+
+\begin{table}[ht]
+  \centering
+  \caption{Effects of the \opt{math-style} package option.}
+  \hlabel{math-style}
+  \begin{tabular}{@{}>{\ttfamily}lcc@{}}
+    \hline
+      \rmfamily Package option & Latin & Greek \\
+    \hline
+      math-style=ISO & $(a,z,B,X)$ & $\symit{(\alpha,\beta,\Gamma,\Xi)}$ \\
+      math-style=TeX & $(a,z,B,X)$ & $(\symit\alpha,\symit\beta,\symup\Gamma,\symup\Xi)$ \\
+      math-style=french & $(a,z,\symup B,\symup X)$ & $(\symup\alpha,\symup\beta,\symup\Gamma,\symup\Xi)$ \\
+      math-style=upright & $(\symup a,\symup z,\symup B,\symup X)$ & $(\symup\alpha,\symup\beta,\symup\Gamma,\symup\Xi)$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Bold letters are printed upright except lowercase Greek letters
+which are slanted (the default option is \opt{bold-style=TeX}). This can be
+changed by option \opt{bold-style} as shown in table~\vref{bold-style}.
+
+\begin{table}[ht]
+  \centering
+  \caption{Effects of the \opt{bold-style} package option.}
+  \hlabel{bold-style}
+  \begin{tabular}{@{}>{\ttfamily}lcc@{}}
+    \hline
+      \rmfamily Package option & Latin & Greek \\
+    \hline
+      bold-style=ISO & $(\symbfit a, \symbfit z, \symbfit B, \symbfit X)$ & $(\symbfit\alpha, \symbfit\beta, \symbfit\Gamma, \symbfit\Xi)$ \\
+      bold-style=TeX & $(\symbfup a,\symbfup z,\symbfup B,\symbfup X)$ & $(\symbfit\alpha, \symbfit\beta,\symbfup \Gamma,\symbfup \Xi)$ \\
+      bold-style=upright & $(\symbfup a,\symbfup z,\symbfup B,\symbfup X)$ & $(\symbfup \alpha,\symbfup \beta,\symbfup \Gamma,\symbfup \Xi)$ \\
+    \hline
+  \end{tabular}
+\end{table}
+
+Other possible customisation: $\nabla$ is printed upright and $\partial$ is
+printed slanted by default, but \opt{nabla=italic} and
+\opt{partial=upright} can change this.
+
+All these options are offered by the \pkg{unicode-math} package, they can
+be added to the \cmd{setmathfont} call as well%
+\footnote{IMHO it is easier to add \emph{all options} to the \cmd{setmathfont}
+  command.}, for example:
+
+\verb+\setmathfont{LatoMath.otf}[math-style=french,partial=upright]+
+
+will print for the code
+
+\verb|\[ \frac{\partial f}{\partial x} = \alpha \symbf{V} + a\nabla\Gamma|\\
+\verb|                                 + \symbf{\beta}\symbf{M} \]|
+
+\setmathfont{LatoMath.otf}[math-style=french,partial=upright]
+\[\frac{\partial f}{\partial x} = \alpha \symbf{V} + a\nabla\Gamma +
+              \symbf{\beta}\symbf{M} \]
+while the default settings would print
+\setmathfont{LatoMath.otf}[math-style=TeX,partial=italic]
+\[\frac{\partial f}{\partial x} = \alpha \symbf{V} + a\nabla\Gamma +
+              \symbf{\beta}\symbf{M} \]
+
+Both shapes remain available anytime: \verb+$\uppi,\itpi$+
+prints $\uppi, \itpi$.
+
+If your text editor is able to handle Greek letters or maths symbols, they can
+be entered in the code instead control sequences (i.e.
+$\symup{α}$, $\symup{β}$, $\symup{Γ}$,… for \cmd{alpha}, \cmd{beta},
+\cmd{Gamma},…).
+
+\subsection{Character variants}
+\label{ssection-cv}
+
+\LAotf{} provides nine ``Character Variants'' options, listed on
+table~\vref{cv}, to choose between different glyphs for Greek characters
+and some others.
+
+For instance, to get \cmd{epsilon} and \cmd{phi} typeset as $\varepsilon$
+and $\varphi$ instead of $\epsilon$ and $\phi$, you can add option
+\verb+CharacterVariant={3,6}+ to the \cmd{setmathfont} call:
+
+\verb+\setmathfont{LatoMath.otf}[CharacterVariant={3,6}]+
+
+\begin{table}[ht]
+  \centering  \caption{Character variants.}
+  \hlabel{cv}
+  \begin{tabular}{@{}>{\ttfamily}lccl@{}}
+    \hline
+           & Default       & Variant          & Name\\
+    \hline
+      cv01 & $\hslash$     & $\mithbar$       & \cmd{hslash} \\
+      cv02 & $\emptyset$   & $\varemptyset$   & \cmd{emptyset} \\
+      cv03 & $\epsilon$    & $\varepsilon$    & \cmd{epsilon} \\
+      cv04 & $\kappa$      & $\varkappa$      & \cmd{kappa} \\
+      cv05 & $\pi$         & $\varpi$         & \cmd{pi} \\
+      cv06 & $\phi$        & $\varphi$        & \cmd{phi} \\
+      cv07 & $\rho$        & $\varrho$        & \cmd{rho} \\
+      cv08 & $\sigma$      & $\varsigma$      & \cmd{sigma} \\
+      cv09 & $\theta$      & $\vartheta$      & \cmd{theta} \\
+      cv10 & $\Theta$      & $\varTheta$      & \cmd{Theta}\\
+    \hline
+  \end{tabular}
+\end{table}
+
+This  works for all shapes and weights of these characters: f.i.\ %
+\verb+$\symbf{\epsilon}$+, \verb+$\symbf{\phi}$+ are output as
+\setmathfont{LatoMath.otf}[CharacterVariant={3,6}]$\symbf{\epsilon}$,
+$\symbf{\phi}$ instead of
+\setmathfont{LatoMath.otf}$\symbf{\epsilon}$, $\symbf{\phi}$.
+If \opt{math-style=french} has been chosen, \verb+\epsilon+ and \verb+\phi+
+are output as $\symup{\varepsilon}$ and $\symup{\varphi}$ (upright).
+
+Please note that curly braces are mandatory whenever more than one
+``Character Variant'' is selected.
+
+Note about \cmd{hbar}: \pkg{amsmath} provides two different glyphs
+(italic $h$ with horizontal or diagonal stroke) while \pkg{unicode-math}
+defines \cmd{hbar} as \cmd{hslash} (U+210F).
+\pkg{LatoMath} follows \pkg{unicode-math}; the italic $h$ with horizontal
+stroke can be printed using \cmd{hslash} or \cmd{hbar} together with character
+variant \texttt{cv01} or with \cmd{mithbar} (replacement for AMS’ command
+\cmd{hbar}).
+
+
+\subsection{Stylistic sets}
+\label{ssection-ss}
+
+\LAotf{} provides five ``Stylistic Sets'' options to choose between different
+glyphs for families of maths symbols.
+
+\verb+StylisticSet=4+, alias%
+\footnote{These \texttt{Style} aliases are provided by \file{lato-math.sty}.}
+\verb+Style=leqslant+, converts inequalities into their slanted  variants, see
+table~\vref{ss04}.
+
+\verb+StylisticSet=5+, alias \verb+Style=smaller+, converts some symbols into
+their smaller variants, see table~\vref{ss05}.
+\begin{table}[ht]
+  \centering
+  \caption{Stylistic Sets 4 and 5}
+  \subfloat[\texttt{Style=leqslant\quad (+ss04)}]{\hlabel{ss04}%
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command           & Default         & Variant \\
+    \hline
+      \cmd{leq}         & $\leq$         & $\leqslant$ \\
+      \cmd{geq}         & $\geq$         & $\geqslant$ \\
+      \cmd{nleq}        & $\nleq$        & $\nleqslant$ \\
+      \cmd{ngeq}        & $\ngeq$        & $\ngeqslant$ \\
+      \cmd{leqq}        & $\leqq$        & $\leqqslant$ \\
+      \cmd{geqq}        & $\geqq$        & $\geqqslant$ \\
+      \cmd{nleqq}       & $\nleqq$       & $\nleqqslant$ \\
+      \cmd{ngeqq}       & $\ngeqq$       & $\ngeqqslant$ \\
+      \cmd{eqless}      & $\eqless$      & $\eqslantless$ \\
+      \cmd{eqgtr}       & $\eqgtr$       & $\eqslantgtr$ \\
+      \cmd{lesseqgtr}   & $\lesseqgtr$   & $\lesseqslantgtr$ \\
+      \cmd{gtreqless}   & $\gtreqless$   & $\gtreqslantless$ \\
+      \cmd{lesseqqgtr}  & $\lesseqqgtr$  & $\lesseqqslantgtr$ \\
+      \cmd{gtreqqless}  & $\gtreqqless$  & $\gtreqqslantless$ \\
+   \hline
+  \end{tabular}
+  }\hspace{10mm} % eof subfloat
+  \subfloat[\texttt{Style=smaller\quad (+ss05)}]{\hlabel{ss05}%
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command                & Default             & Variant \\
+    \hline
+      \cmd{in}               & $\in$               & $\smallin$ \\
+      \cmd{ni}               & $\ni$               & $\smallni$ \\
+      \cmd{mid}              & $\mid$              & $\shortmid$ \\
+      \cmd{nmid}             & $\nmid$             & $\nshortmid$ \\
+      \cmd{parallel}         & $\parallel$         & $\shortparallel$ \\
+      \cmd{nparallel}        & $\nparallel$        & $\nshortparallel$ \\
+      \cmd{parallelslant}    & $\parallelslant$    & $\shortparallelslant$ \\
+      \cmd{nparallelslant}   & $\nparallelslant$   & $\nshortparallelslant$ \\
+   \hline
+  \end{tabular}
+  }% eof subfloat
+\end{table}
+
+%\pagebreak[4]
+\verb+StylisticSet=6+, alias \verb+Style=subsetneq+, converts some inclusion
+symbols, as shown in table~\vref{ss06}.
+
+\verb+StylisticSet=7+, alias \verb+Style=parallelslant+, converts
+``parallel'' symbols into their slanted variants, see table~\vref{ss07}.
+\begin{table}[ht]
+  \centering
+  \caption{Stylistic Sets 6 and 7}
+  \subfloat[\texttt{Style=subsetneq\quad (+ss06)}]{\hlabel{ss06}%
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command           & Default         & Variant \\
+    \hline
+      \cmd{subsetneq}   & $\subsetneq$    & $\varsubsetneq$ \\
+      \cmd{supsetneq}   & $\supsetneq$    & $\varsupsetneq$ \\
+      \cmd{subsetneqq}  & $\subsetneqq$   & $\varsubsetneqq$ \\
+      \cmd{supsetneqq}  & $\supsetneqq$   & $\varsupsetneqq$ \\
+   \hline
+  \end{tabular}
+  }\hspace{10mm} % eof subfloat
+  \subfloat[\texttt{Style=parallelslant\quad (+ss07)}]{\hlabel{ss07}%
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command               & Default            & Variant \\
+    \hline
+      \cmd{parallel}        & $\parallel$        & $\parallelslant$ \\
+      \cmd{nparallel}       & $\nparallel$       & $\nparallelslant$ \\
+      \cmd{shortparallel}   & $\shortparallel$   & $\shortparallelslant$ \\
+      \cmd{nshortparallel}  & $\nshortparallel$  & $\nshortparallelslant$ \\
+   \hline
+  \end{tabular}
+  } % eof subfloat
+\end{table}
+
+To enable Stylistic Sets  4 and 8 for \LAotf{}, you should enter
+
+\verb+\setmathfont{LatoMath.otf}[StylisticSet={4,8}]  or+\\
+\verb+\usepackage[Style={leqslant,upint}]{lato-math}+
+
+then, \verb+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]+
+will print as
+\setmathfont{LatoMath.otf}[StylisticSet={4,8}]
+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
+instead of
+\setmathfont{LatoMath.otf}
+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
+
+%\pagebreak[4]
+\verb+StylisticSet=8+, alias%
+\footnote{These \texttt{Style} aliases are provided by \file{lato-math.sty}.}
+\verb+Style=upint+, converts integrals signs into their upright
+variants, see table~\vref{ss08}.
+\begin{table}[ht]
+  \let\DS\displaystyle
+  \centering
+  \caption{Style=upint\quad  (+ss08)}\hlabel{ss08}
+  \begin{tabular}[t]{@{}l*{8}c@{}}
+    \hline
+    Command   &\cmd{int}   &\cmd{iint}  &\cmd{iiint} &\cmd{iiiint}
+                   &\cmd{oint}  &\cmd{oiint} &\cmd{oiiint} \\
+    \hline
+    Default\rule[-15pt]{0pt}{35pt}   &$\DS\int$ &$\DS\iint$ &$\DS\iiint$ &$\DS\iiiint$
+                   &$\DS\oint$ &$\DS\oiint$ &$\DS\oiiint$
+    \\[\baselineskip]
+    \setmathfont{LatoMath.otf}[Style=upint]
+    Upright\rule[-15pt]{0pt}{30pt}   &$\DS\int$ &$\DS\iint$  &$\DS\iiint$ &$\DS\iiiint$
+                   &$\DS\oint$ &$\DS\oiint$  &$\DS\oiiint$ \\
+    \hline
+  \end{tabular}\\[\baselineskip]
+  \setmathfont{LatoMath.otf}
+  \begin{tabular}[t]{@{}l*{4}c@{}}
+    \hline
+    Command  &\scmd{intclockwise}  &\scmd{awint}
+                   &\scmd{varointclockwise}  &\scmd{ointctrclockwise} \\
+    \hline
+    Default\rule[-15pt]{0pt}{35pt} &$\DS\intclockwise$ &$\DS\awint$
+                   &$\DS\varointclockwise$ &$\DS\ointctrclockwise$ \\
+    \setmathfont{LatoMath.otf}[Style=upint]
+    Upright\rule[-15pt]{0pt}{30pt}  &$\DS\intclockwise$ &$\DS\awint$
+                   &$\DS\varointclockwise$  &$\DS\ointctrclockwise$ \\
+    \hline
+  \end{tabular}
+\end{table}
+\setmathfont{LatoMath.otf}
+
+\subsection{Other font features}
+\label{ssec-other-features}
+
+To get oldstyle numbers in maths, the feature \texttt{+onum} is available:
+
+\verb+\setmathfont{LatoMath.otf}[Numbers=OldStyle]  or+\\
+\verb+\usepackage[Style=fulloldstyle]{lato-math}+
+
+\setmathfont{LatoMath.otf}[Numbers=OldStyle]
+$0123456789, \symbf{0123456789}$
+\setmathfont{LatoMath.otf}
+
+\subsection{Standard LaTeX maths commands}
+\label{ssec-math-commands}
+
+All standard LaTeX maths commands, all \pkg{amssymb} commands and all
+\pkg{latexsym} commands are supported by \LAotf{}, for some of them loading
+\pkg{lato-math.sty} is required.
+
+Various wide accents and extensible arrows are also supported:
+\begin{itemize}
+\item \cmd{wideoverbar} and \cmd{mathunderbar}%
+  \footnote{\cmd{overline} and \cmd{underline} are not font related,
+     they are based on \cmd{rule}.}
+  \[\wideoverbar{x}\quad \wideoverbar{xy}\quad \wideoverbar{xyz}\quad
+    \wideoverbar{A\cup B}\quad \wideoverbar{A\cup (B\cap C)\cup D}\quad
+    \mathunderbar{m+n+p}\]
+
+\item \cmd{widehat} and \cmd{widetilde}
+\[\widehat{x}\; \widehat{xx} \;\widehat{xxx} \;\widehat{xxxx}\;
+  \widehat{xxxxx} \;\widehat{xxxxxx} \;\widetilde{x}\; \widetilde{xx}\;
+  \widetilde{xxx} \;\widetilde{xxxx} \;\widetilde{xxxxx}\;
+  \widetilde{xxxxxx}\]
+
+\item \cmd{widecheck}  and \cmd{widebreve}
+  \[\widecheck{x}\quad \widecheck{xxxx}\quad \widecheck{xxxxxx}\quad
+    \widebreve{x}\quad \widebreve{xxxx}\quad \widebreve{xxxxxx}\]
+
+\item \cmd{overparen} and \cmd{underparen}
+  \[\overparen{x}\quad \overparen{xy}\quad \overparen{xyz}\quad
+    \mathring{\overparen{A\cup B}}\quad
+    \overparen{A\cup (B\cap C)\cup D}^{\smwhtcircle}\quad
+    \overparen{x+y}^{2}\quad \overparen{a+b+...+z}^{26}\]
+\[\underparen{x}\quad \underparen{xz} \quad \underparen{xyz}
+  \quad \underparen{x+z}_{2}\quad \underparen{a+b+...+z}_{26}\]
+
+\item \cmd{overbrace} and \cmd{underbrace}
+  \[\overbrace{a}\quad \overbrace{ab}\quad \overbrace{abc}\quad
+  \overbrace{abcd}\quad \overbrace{abcde}\quad
+  \overbrace{a+b+c}^{3}\quad \overbrace{ a+b+. . . +z }^{26}\]
+\[\underbrace{a}\quad\underbrace{ab}\quad\underbrace{abc}\quad
+  \underbrace{abcd}\quad \underbrace{abcde}\quad
+  \underbrace{a+b+c}_{3}  \quad \underbrace{ a+b+...+z }_{26}\]
+
+\item \cmd{overbracket} and \cmd{underbracket}
+  \[\overbracket{a}\quad \overbracket{ab}\quad \overbracket{abc}\quad
+  \overbracket{abcd}\quad \overbracket{abcde}\quad
+  \overbracket{a+b+c}^{3}\quad \overbracket{ a+b+. . . +z }^{26}\]
+\[\underbracket{a}\quad\underbracket{ab}\quad\underbracket{abc}\quad
+  \underbracket{abcd}\quad \underbracket{abcde}\quad
+  \underbracket{a+b+c}_{3}  \quad \underbracket{ a+b+...+z }_{26}\]
+
+\item \cmd{overrightarrow} and \cmd{overleftarrow}
+  \[\overrightarrow{v}\quad \overrightarrow{M}\quad \overrightarrow{vv}
+  \quad \overrightarrow{AB}\quad \overrightarrow{ABC}
+  \quad \overrightarrow{ABCD} \quad \overrightarrow{ABCDEFGH}.
+\]
+\[\overleftarrow{v}\quad \overleftarrow{M}\quad \overleftarrow{vv}
+  \quad \overleftarrow{AB}\quad \overleftarrow{ABC}
+  \quad \overleftarrow{ABCD} \quad \overleftarrow{ABCDEFGH}\]
+
+\item \cmd{overrightharpoon} and \cmd{overleftharpoon}
+  \[\overrightharpoon{v}\quad \overrightharpoon{M}\quad \overrightharpoon{vv}
+  \quad \overrightharpoon{AB}\quad \overrightharpoon{ABC}
+  \quad \overrightharpoon{ABCD} \quad \overrightharpoon{ABCDEFGH}.
+  \]
+  \[\overleftharpoon{v}\quad \overleftharpoon{M}\quad \overleftharpoon{vv}
+  \quad \overleftharpoon{AB}\quad \overleftharpoon{ABC}
+  \quad \overleftharpoon{ABCD} \quad \overleftharpoon{ABCDEFGH}\]
+
+\item \cmd{underrightarrow} and \cmd{underleftarrow}
+  \[\underrightarrow{v}\quad \underrightarrow{M}\quad \underrightarrow{vv}
+  \quad \underrightarrow{AB}\quad \underrightarrow{ABC}
+  \quad \underrightarrow{ABCD} \quad \underrightarrow{ABCDEFGH}.
+  \]
+  \[\underleftarrow{v}\quad \underleftarrow{M}\quad \underleftarrow{vv}
+  \quad \underleftarrow{AB}\quad \underleftarrow{ABC}
+  \quad \underleftarrow{ABCD} \quad \underleftarrow{ABCDEFGH}\]
+
+\item \cmd{underrightharpoon} and \cmd{underleftharpoondown}
+  \[\underrightharpoondown{v}\quad \underrightharpoondown{M}\quad
+    \underrightharpoondown{vv}\quad \underrightharpoondown{AB}\quad
+    \underrightharpoondown{ABC}\quad \underrightharpoondown{ABCD}\quad
+    \underrightharpoondown{ABCDEFGH}.
+  \]
+  \[\underleftharpoondown{v}\quad \underleftharpoondown{M}\quad
+    \underleftharpoondown{vv}\quad \underleftharpoondown{AB}\quad
+    \underleftharpoondown{ABC}\quad \underleftharpoondown{ABCD}
+    \quad \underleftharpoondown{ABCDEFGH}.
+  \]
+\end{itemize}
+
+All the extensible arrows provided by the \pkg{mathtools} package are
+available in the \LAotf{} font (loading \pkg{lato-math.sty} is required), f.i.:
+\[X \xLeftrightarrow{\text{above}} Y \xhookrightarrow[\text{under}]{}
+  Z\xmapsto{\text{above}} W\]
+
+A wide range of extensible vertical delimiters is provided:
+
+\[ \left/
+  \begin{pmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{pmatrix}
+  \begin{bmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{bmatrix}
+  \begin{Bmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{Bmatrix}
+  \begin{vmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{vmatrix}
+  \begin{Vmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{Vmatrix}
+  \left\lVvert\begin{array}{c} a_{1} \\ a_{2} \\  a_{3} \end{array}\right\Vvert
+  \left\lceil \begin{array}{c} a_{1} \\ a_{2} \\  a_{3} \end{array}\right\rceil
+  \left\lfloor\begin{array}{c} a_{1} \\ a_{2} \\  a_{3} \end{array}\right\rfloor
+  \left\lBrack\begin{array}{c} a_{1} \\ a_{2} \\  a_{3} \end{array}\right\rBrack
+  \left\langle\begin{array}{c} a_{1} \\ a_{2} \\  a_{3} \end{array}\right\rangle
+  \left\lAngle\begin{array}{c} a_{1} \\ a_{2} \\  a_{3} \end{array}\right\rAngle
+  \right\backslash \]
+
+\subsection{Mathematical alphabets}
+\label{ssec-math-alphabets}
+
+\begin{itemize}
+\item  All Latin and Greek characters are available in italic, upright, bold
+  and bold italic via the \verb+\symit{}+, \verb+\symup{}+, \verb+\symbf{}+
+  and \verb+\symbfit{}+ commands.
+
+\item Calligraphic alphabet (\cmd{symscr} or \cmd{symcal} or
+  \cmd{mathcal} command), uppercase:
+
+  $\symscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
+
+  also in boldface (\cmd{symbfscr},\cmd{symbfcal} or \cmd{mathbfcal} command):
+
+  $\symbfscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
+
+\item Blackboard-bold alphabet (\cmd{symbb} or \cmd{mathbb} command):
+
+  $\symbb{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
+  $\symbb{abcdefghijklmnopqrstuvwxyz\quad 0123456789}$
+
+\item Fraktur alphabet is borrowed from Latin Modern, medium and bold
+  (\cmd{symfrak}, or \cmd{symbffrak} commands):
+
+  $\symfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ\; abcdefghijklmnopqrstuvwxyz}$\\
+  $\symbffrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
+  \hphantom{$\symfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ\;}$}%
+    $\symbffrak{abcdefghijklmnopqrstuvwxyz}$
+
+  but this can overwritten, i.e.
+
+\verb+\setmathfont{Asana-Math.otf}[range=frak,Scale=MatchUppercase]+\\
+\verb+$\symfrak{ABCDEFGHIJKL...XYZ abcdefghijkl...xyz}$+
+
+%\verb+\setmathfont{Asana-Math.otf}[range=frak,Scale=MatchUppercase]+\\
+%\verb+$\symfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
+
+\item Typewriter alphabet is sans-serif: $\symtt{0123456789}$
+
+  $\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$
+
+but it can be borrowed from  another maths font.
+
+%\verb+\setmathfont{STIXTwoMath-Regular.otf}[range=tt,+\\
+%\verb+                                      Scale=MatchUppercase]+\\
+%\verb+$\symtt{ABCDE...XYZ abcde...xyz}$+
+
+%\verb+\setmathfont{STIXTwoMath-Regular.otf}[range=tt,Scale=MatchUppercase]+\\
+%\verb+$\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
+\end{itemize}
+
+Like Latin Modern, \pkg{LatoMath} provides only four lowercase latin
+letters in script (or calligraphic) shape: $\mscre$, $\mscrg$, $\ell$,
+$\mscro$ (\verb+\mscre+, \verb+\mscrg+, \verb+\ell+, \verb+\mscro+).
+
+All others (range \verb+"1D4B6+ to \verb+"1D4CF+) have to be borrowed
+from another maths font if needed, i.e.
+
+\verb+\setmathfont{LibertinusMath-Regular.otf}%+\\
+\verb+            [range="1D4B6-"1D4CF, Scale=MatchLowercase]+
+
+\subsection{Bold variant}
+
+\setmathfont{LatoMath.otf}[BoldFont=LatoMath-Bold.otf]
+In case short maths formulas have to be printed in section titles,
+a \emph{limited} bold variant is provided. Example of usage:\quad
+\textbf{\boldmath Einstein’s equation $E=mc^2$}
+
+\verb+\setmathfont{LatoMath-Bold.otf}[version=bold, +\textit{options}\verb+]+\\
+\verb+\section{\mathversion{bold} Einstein’s equation $E=mc^2$}+
+
+It is also possible to use the \verb+\boldmath+ command%
+\footnote{The \cmd{boldmath} command works out of the box when
+  \pkg{lato-math.sty} is loaded.}:
+
+\verb+\setmathfont{LatoMath-Regular.otf}[BoldFont=LatoMath-Bold.otf]+\\
+\verb+\section{\boldmath Einstein’s equation $E=mc^2$}+
+
+\subsection{Missing symbols}
+
+\LAotf{} is fairly complete (see file \file{unimath-sans.pdf}),
+if you happen to need some of the few missing glyphs you can borrow them from
+a more complete font, say \file{New Computer Modern}. For instance if you need
+Italic Blackboard Bold (U+2145 to U+2149) you could try:
+
+\verb+\setmathfont{NewCMMath-Book.otf}[range={"2145-"2149},Scale=1.05]+
+
+Let’s mention \pkg{albatross}, a useful tool to find out the list of fonts
+providing a given glyph: f.i. type in a terminal ``\texttt{albatross U+2145}'',
+see the manpage or \file{albatross-manual.pdf}.
+
+\section{Acknowledgements}
+
+Many thanks to \href{https:www.typoland.com}{Łukasz Dziedzic} for providing
+the Lato text fonts in OpenType format.
+
+We are grateful to George Williams and his co-workers for providing and
+maintaining FontForge and to Ulrik Vieth for his illuminating paper published
+in TUGboat~2009 Volume~30 about OpenType Maths.
+
+
+\bigskip
+\begin{center}\Huge
+\decotwo
+\end{center}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-engine: luatex
+%%% TeX-master: t
+%%% coding: utf-8
+%%% End:
