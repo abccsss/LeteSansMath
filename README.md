@@ -52,6 +52,10 @@ See the documentation `LatoMath.pdf` for details.
 
 ## Changes
 
-### v0.36 (2024-03-15)
+### v0.37 (2024-04-18)
+
+* Glyphs U+2234–U+223B and sans-serif Greek letters U+1D756–U+1D7CB added to the bold variant.
+
+### v0.36 (2024-03-14)
 
 * First public release.

@@ -3,15 +3,20 @@
 
 \usepackage{mathtools, array, varioref}
 \usepackage[british]{babel}
-\usepackage{fourier-orns}
-\usepackage[default,defaultsans]{lato}
+%\usepackage[default,defaultsans]{lato}
+\usepackage{fontspec}
+\setmainfont{Lato}
+\setsansfont{Lato}
 \usepackage{realscripts}
+\usepackage{fourier-orns}
 \usepackage{lato-math}
 \setmonofont{Inconsolatazi4}[Scale=MatchLowercase,
                              HyphenChar=None,StylisticSet={2,3}]
 \usepackage{subfig}
 \captionsetup[subtable]{position=top}
 \usepackage{microtype}
+\usepackage{setspace}
+\setstretch{1.10}
 \usepackage{hyperref}
 \hypersetup{pdftitle={Lato Math User’s Guide},
             pdfauthor={Chenjing Bu \& Daniel Flipo},
@@ -36,9 +41,7 @@
 \author{Chenjing Bu --- Daniel Flipo\\
         \url{https://github.com/abccsss/LatoMath}}
 
-\newcommand*{\version}{0.36}
-\usepackage{setspace}
-\setstretch{1.10}
+\newcommand*{\version}{0.37}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 3pt minus 3pt}
 
@@ -117,7 +120,7 @@ As an alternative to load \LAotf{} you can type:\\[.5\baselineskip]
   any of the options described in sections~\ref{ssection-um},
   \ref{ssection-cv} and \ref{ssection-ss}.}%
 \verb+ ]{lato-math}+\\[.5\baselineskip]
-it loads \pkg{unicode-math} with the default options, sets LatoMath
+it loads \pkg{unicode-math} with the default options, sets \LAotf{}
 as maths font and does a bit more:
 \begin{enumerate}
 \item it checks at \verb+\begin{document}+ if packages \pkg{amssymb} or
@@ -294,7 +297,7 @@ Please note that curly braces are mandatory whenever more than one
 Note about \cmd{hbar}: \pkg{amsmath} provides two different glyphs
 (italic $h$ with horizontal or diagonal stroke) while \pkg{unicode-math}
 defines \cmd{hbar} as \cmd{hslash} (U+210F).
-\pkg{LatoMath} follows \pkg{unicode-math}; the italic $h$ with horizontal
+\pkg{lato-math} follows \pkg{unicode-math}; the italic $h$ with horizontal
 stroke can be printed using \cmd{hslash} or \cmd{hbar} together with character
 variant \texttt{cv01} or with \cmd{mithbar} (replacement for AMS’ command
 \cmd{hbar}).
@@ -617,7 +620,7 @@ but it can be borrowed from  another maths font.
 %\verb+$\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
 \end{itemize}
 
-Like Latin Modern, \pkg{LatoMath} provides only four lowercase latin
+Like Latin Modern, \pkg{lato-math} provides only four lowercase Latin
 letters in script (or calligraphic) shape: $\mscre$, $\mscrg$, $\ell$,
 $\mscro$ (\verb+\mscre+, \verb+\mscrg+, \verb+\ell+, \verb+\mscro+).
 
@@ -646,7 +649,7 @@ It is also possible to use the \verb+\boldmath+ command%
 
 \subsection{Missing symbols}
 
-\LAotf{} is fairly complete (see file \file{unimath-sans.pdf}),
+\LAotf{} is fairly complete (see file \file{unimath-lato.pdf}),
 if you happen to need some of the few missing glyphs you can borrow them from
 a more complete font, say \file{New Computer Modern}. For instance if you need
 Italic Blackboard Bold (U+2145 to U+2149) you could try:
