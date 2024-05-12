@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\def\fileversion{0.37}
-\def\filedate{2024-04-18}
-\ProvidesPackage{lato-math}[\filedate\space\fileversion]
+\def\fileversion{0.40}
+\def\filedate{2024-05-11}
+\ProvidesPackage{lete-sans-math}[\filedate\space\fileversion]
 
 %Ensure luatex or xetex engine
 \RequirePackage{iftex}[2019/10/24]
@@ -15,47 +15,47 @@
 \newopentypefeature{Style}{upint}{+ss08}
 \newopentypefeature{Style}{upneg}{+ss09}
 
-\newtoks\LatoMtoks
-\newcommand*{\Latostore@KV@Option}[2]{%
-  \LatoMtoks=\expandafter{\the\LatoMtoks #1={#2},}}
+\newtoks\LeteMtoks
+\newcommand*{\Letestore@KV@Option}[2]{%
+  \LeteMtoks=\expandafter{\the\LeteMtoks #1={#2},}}
 
 % Package options:
 \DeclareKeys
   {
-   tight.if              = Lato@tight                                 ,
-   loose.code            = \Lato@tightfalse                           ,
-   fulloldstyle.code     = \Latostore@KV@Option{Numbers}{OldStyle}    ,
-   math-style.code       = \Latostore@KV@Option{math-style}{#1}       ,
-   bold-style.code       = \Latostore@KV@Option{bold-style}{#1}       ,
-   nabla.code            = \Latostore@KV@Option{nabla}{#1}            ,
-   partial.code          = \Latostore@KV@Option{partial}{#1}          ,
-   CharacterVariant.code = \Latostore@KV@Option{CharacterVariant}{#1} ,
-   StylisticSet.code     = \Latostore@KV@Option{StylisticSet}{#1}     ,
-   Style.code            = \Latostore@KV@Option{Style}{#1}            ,
-   Scale.code            = \Latostore@KV@Option{Scale}{#1}
+   tight.if              = Lete@tight                                 ,
+   loose.code            = \Lete@tightfalse                           ,
+   fulloldstyle.code     = \Letestore@KV@Option{Numbers}{OldStyle}    ,
+   math-style.code       = \Letestore@KV@Option{math-style}{#1}       ,
+   bold-style.code       = \Letestore@KV@Option{bold-style}{#1}       ,
+   nabla.code            = \Letestore@KV@Option{nabla}{#1}            ,
+   partial.code          = \Letestore@KV@Option{partial}{#1}          ,
+   CharacterVariant.code = \Letestore@KV@Option{CharacterVariant}{#1} ,
+   StylisticSet.code     = \Letestore@KV@Option{StylisticSet}{#1}     ,
+   Style.code            = \Letestore@KV@Option{Style}{#1}            ,
+   Scale.code            = \Letestore@KV@Option{Scale}{#1}
   }
 %
 \ProcessKeyOptions
 %
-% Math fonts: LatoMath.otf
+% Math fonts: LeteSansMath.otf, LeteSansMath-Bold.otf.
 % Following Joseph Wright in https://tex.stackexchange.com/questions/451
-\Latostore@KV@Option{BoldFont}{LatoMath-Bold.otf}
+\Letestore@KV@Option{BoldFont}{LeteSansMath-Bold.otf}
 \begingroup
   \edef\temp{%
     \endgroup
-    \noexpand\setmathfont{LatoMath.otf}%
-    [\unexpanded\expandafter{\the\LatoMtoks}]%
+    \noexpand\setmathfont{LeteSansMath.otf}%
+    [\unexpanded\expandafter{\the\LeteMtoks}]%
   }
   \temp
 %
-\ifLato@tight
+\ifLete@tight
   \thinmuskip=2mu
   \medmuskip=2.5mu plus 1mu minus 2.5mu
   \thickmuskip=3.5mu plus 2.5mu
 \fi
 
 \AtBeginDocument{%
-  % LatoMath specific
+  % LeteSansMath specific
   % \Umathchardef\<cmd> = <math type> <family> <slot>
   % <math type> : \mathord=0 \mathrel=3 ; <family>=0
   \Umathchardef\mbfimath =            0 0 "E041 \relax
@@ -87,8 +87,8 @@
   \Umathchardef\rhook =               3 0 "E08F \relax
   % amssymb
   \@ifpackageloaded{amssymb}%
-    {\PackageWarning{lato-otf}{%
-       LatoMath provides all AMS symbols.\MessageBreak
+    {\PackageWarning{lete-sans-math}{%
+       LeteSansMath provides all AMS symbols.\MessageBreak
        Loading amssymb.sty is not advisable.\MessageBreak
        Reported}%
     }%
@@ -142,8 +142,8 @@
     }%
   % latexsym
   \@ifpackageloaded{latexsym}%
-    {\PackageWarning{lato-otf}{%
-       LatoMath provides all LaTeX symbols.\MessageBreak
+    {\PackageWarning{lete-sans-math}{%
+       LeteSansMath provides all LaTeX symbols.\MessageBreak
        Loading latexsym.sty is not advisable.\MessageBreak
        Reported}%
     }%

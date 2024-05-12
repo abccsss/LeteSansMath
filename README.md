@@ -1,56 +1,60 @@
-# Lato Math
+# Lete Sans Math
 
-__Lato Math__ is an OpenType sans-serif math font,
+__Lete Sans Math__ is an OpenType sans-serif math font,
 based on the
 [Lato](https://github.com/latofonts/lato-source) font.
 
-![Lato Math](https://github.com/abccsss/LatoMath/assets/23280392/49a23583-f63c-45ba-83cd-ec4cdfc6d1a1)
+![Lete Sans Math](https://github.com/abccsss/LeteSansMath/assets/23280392/49a23583-f63c-45ba-83cd-ec4cdfc6d1a1)
 
-This repository contains the content of the LaTeX package `lato-math`,
+This repository contains the content of the LaTeX package `lete-sans-math`,
 including OpenType font files, LaTeX style files, and documentation.
 You can also view the package on
-[CTAN](https://ctan.org/pkg/lato-math).
+[CTAN](https://ctan.org/pkg/lete-sans-math).
 
 ## Contents
 
-* `LatoMath.otf`
+* `LeteSansMath.otf`
 	— The OpenType font file.
-* `LatoMath-Bold.otf`
+* `LeteSansMath-Bold.otf`
 	— The OpenType font file for the bold variant (limited coverage).
-* `lato-math.sty`
+* `lete-sans-math.sty`
 	— The LaTeX style file.
-* `LatoMath.pdf`
+* `LeteSansMath.pdf`
 	— Documentation of the package.
-* `LatoMath.ltx`
-	— The LaTeX source of `LatoMath.pdf`.
-* `unimath-lato.pdf`
+* `LeteSansMath.ltx`
+	— The LaTeX source of `LeteSansMath.pdf`.
+* `unimath-lete.pdf`
 	— A modified version of `unimath-symbols.pdf`
 	from the `unicode-math` package,
-	showing available Lato Math symbols compared
+	showing available Lete Sans Math symbols compared
 	to other sans-serif math fonts.
-* `unimath-lato.ltx`
-	— The LaTeX source of `unimath-lato.pdf`.
+* `unimath-lete.ltx`
+	— The LaTeX source of `unimath-lete.pdf`.
 
 ## Usage
 
 This package is meant to be installed automatically by TeX Live, MikTeX, etc. Use
 ```latex
-\usepackage{lato-math}
+\usepackage{lete-sans-math}
 ```
 to load the package.
 The package requires XeLaTeX or LuaLaTeX to compile.
 For more information such as package options,
-see the documentation `LatoMath.pdf`.
+see the documentation `LeteSansMath.pdf`.
 
 To load the package manually, place the files
-`lato-math.sty`, `LatoMath.otf`, and `LatoMath-Bold.otf`
+`lete-sans-math.sty`, `LeteSansMath.otf`, and `LeteSansMath-Bold.otf`
 in your project directory,
 and use the same call as above.
 
-It is also possible to use the font without the `lato-math` package.
-See the documentation `LatoMath.pdf` for details.
+It is also possible to use the font without the `lete-sans-math` package.
+See the documentation `LeteSansMath.pdf` for details.
 
 ## Changes
+
+### v0.40 (2024-05-12)
+
+* Rename the font as 'Lete Sans Math' due to copyright reasons.
 
 ### v0.37 (2024-04-18)
 

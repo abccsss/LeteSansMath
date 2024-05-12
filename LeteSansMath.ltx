@@ -5,27 +5,35 @@
 \usepackage[british]{babel}
 %\usepackage[default,defaultsans]{lato}
 \usepackage{fontspec}
+\begin{filecontents}{Lato.fontspec}
+\defaultfontfeatures[Lato]
+  {
+   UprightFont       = Lato-Regular.ttf ,
+   BoldFont          = Lato-Bold.ttf ,
+   ItalicFont        = Lato-Italic.ttf ,
+   BoldItalicFont    = Lato-BoldItalic.ttf ,
+ }
+\end{filecontents}
 \setmainfont{Lato}
 \setsansfont{Lato}
 \usepackage{realscripts}
 \usepackage{fourier-orns}
-\usepackage{lato-math}
-\setmonofont{Inconsolatazi4}[Scale=MatchLowercase,
-                             HyphenChar=None,StylisticSet={2,3}]
+\usepackage{lete-sans-math}
+\setmonofont{Inconsolatazi4}[Scale=MatchLowercase, StylisticSet={2,3}]
 \usepackage{subfig}
 \captionsetup[subtable]{position=top}
 \usepackage{microtype}
 \usepackage{setspace}
 \setstretch{1.10}
 \usepackage{hyperref}
-\hypersetup{pdftitle={Lato Math User’s Guide},
+\hypersetup{pdftitle={Lete Sans Math User’s Guide},
             pdfauthor={Chenjing Bu \& Daniel Flipo},
             bookmarksopen,
             colorlinks
             }
 \newcommand*{\hlabel}[1]{\phantomsection\label{#1}}
 
-\newcommand*{\LAotf}{Lato~Math}
+\newcommand*{\LAotf}{Lete~Sans~Math}
 \newcommand*{\pkg}[1]{\texttt{#1}}
 \newcommand*{\file}[1]{\texttt{#1}}
 \newcommand*{\opt}[1]{\texttt{#1}}
@@ -39,9 +47,9 @@
 
 \title{\decofourleft\,\LAotf\,\decofourright}
 \author{Chenjing Bu --- Daniel Flipo\\
-        \url{https://github.com/abccsss/LatoMath}}
+        \url{https://github.com/abccsss/LeteSansMath}}
 
-\newcommand*{\version}{0.37}
+\newcommand*{\version}{0.40}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 3pt minus 3pt}
 
@@ -51,7 +59,7 @@
 \section{What is \LAotf{}?}
 
 \LAotf{} is an OpenType maths font
-meant to be used with the Lato font, or other sans-serif text fonts.
+meant to be used with the Lato fonts, or other sans-serif text fonts.
 It requires LuaTeX or XeTeX as engine and the \pkg{unicode-math}
 package\footnote{Please read the documentation \file{unicode-math.pdf}.}.
 
@@ -91,8 +99,8 @@ Some examples%
 A basic call for \LAotf{} would be:
 \begin{verbatim}
 \usepackage{unicode-math}
-\setmathfont{LatoMath.otf}  % Call by file name or
-\setmathfont{Lato Math}     % Call by font name
+\setmathfont{LeteSansMath.otf}  % Call by file name or
+\setmathfont{Lete Sans Math}    % Call by font name
 \end{verbatim}
 this loads \LAotf{} as maths font%
 \footnote{Both calls work equally well with LuaTeX; with XeTeX a call by font
@@ -112,14 +120,14 @@ Please note that the text fonts have to be chosen separately, f.i.:
 \end{verbatim}
 otherwise you would get Latin Modern for text fonts.
 
-\subsection{Calling \pkg{lato-math.sty} (recommended)}
+\subsection{Calling \pkg{lete-sans-math.sty} (recommended)}
 
 As an alternative to load \LAotf{} you can type:\\[.5\baselineskip]
 \verb+\usepackage[ +\textit{options}
 \footnote{Possible \textit{options} are \opt{tight}, \opt{Scale=} or
   any of the options described in sections~\ref{ssection-um},
   \ref{ssection-cv} and \ref{ssection-ss}.}%
-\verb+ ]{lato-math}+\\[.5\baselineskip]
+\verb+ ]{lete-sans-math}+\\[.5\baselineskip]
 it loads \pkg{unicode-math} with the default options, sets \LAotf{}
 as maths font and does a bit more:
 \begin{enumerate}
@@ -134,7 +142,7 @@ as maths font and does a bit more:
   (\cmd{thinmuskip}, \cmd{medmuskip} and \cmd{thickmuskip}) in maths mode.
 \end{enumerate}
 
-Please note that the \pkg{lato-math} package does not load any text fonts.
+Please note that the \pkg{lete-sans-math} package does not load any text fonts.
 The Lato text fonts can be loaded directly (see section~\ref{sec:setfont}),
 or via the \pkg{lato} package%
 \footnote{The \pkg{lato} package loads all available weights,
@@ -152,12 +160,12 @@ available with the Lato fonts: M\textsuperscript{r}, M\textsuperscript{lle},
 N\textsuperscript{2} instead of \emph{faked} ones,
 M\fakesuperscript{r}, M\fakesuperscript{lle}, N\fakesuperscript{2}.
 
-The \pkg{lato-math} also provides a \opt{Scale=}\textsl{<decimal>} option
+The \pkg{lete-sans-math} also provides a \opt{Scale=}\textsl{<decimal>} option
 meant to be used to load the \LAotf{} font together with text fonts other
 than Lato, while keeping the advantages 1. to~4. pointed in the preceding
 list, f.i.
 
-\verb+\usepackage[Scale=0.98]{lato-math}+
+\verb+\usepackage[Scale=0.98]{lete-sans-math}+
 
 
 \section{What is provided?}
@@ -167,7 +175,7 @@ available in the \pkg{amssymb} and \pkg{latexsym} packages.  Therefore,
 the latter two packages \emph{should not} be loaded as they might override
 \LAotf{} glyphs.
 
-A full list of available glyphs is shown in file \file{unimath-lato.pdf} which
+A full list of available glyphs is shown in file \file{unimath-lete.pdf} which
 also shows the coverage of other sans-serif maths fonts compared to
 the serif maths fonts NewComputerModern and Cambria.
 
@@ -226,18 +234,18 @@ be added to the \cmd{setmathfont} call as well%
 \footnote{IMHO it is easier to add \emph{all options} to the \cmd{setmathfont}
   command.}, for example:
 
-\verb+\setmathfont{LatoMath.otf}[math-style=french,partial=upright]+
+\verb+\setmathfont{LeteSansMath.otf}[math-style=french,partial=upright]+
 
 will print for the code
 
 \verb|\[ \frac{\partial f}{\partial x} = \alpha \symbf{V} + a\nabla\Gamma|\\
 \verb|                                 + \symbf{\beta}\symbf{M} \]|
 
-\setmathfont{LatoMath.otf}[math-style=french,partial=upright]
+\setmathfont{LeteSansMath.otf}[math-style=french,partial=upright]
 \[\frac{\partial f}{\partial x} = \alpha \symbf{V} + a\nabla\Gamma +
               \symbf{\beta}\symbf{M} \]
 while the default settings would print
-\setmathfont{LatoMath.otf}[math-style=TeX,partial=italic]
+\setmathfont{LeteSansMath.otf}[math-style=TeX,partial=italic]
 \[\frac{\partial f}{\partial x} = \alpha \symbf{V} + a\nabla\Gamma +
               \symbf{\beta}\symbf{M} \]
 
@@ -260,7 +268,7 @@ For instance, to get \cmd{epsilon} and \cmd{phi} typeset as $\varepsilon$
 and $\varphi$ instead of $\epsilon$ and $\phi$, you can add option
 \verb+CharacterVariant={3,6}+ to the \cmd{setmathfont} call:
 
-\verb+\setmathfont{LatoMath.otf}[CharacterVariant={3,6}]+
+\verb+\setmathfont{LeteSansMath.otf}[CharacterVariant={3,6}]+
 
 \begin{table}[ht]
   \centering  \caption{Character variants.}
@@ -285,9 +293,9 @@ and $\varphi$ instead of $\epsilon$ and $\phi$, you can add option
 
 This  works for all shapes and weights of these characters: f.i.\ %
 \verb+$\symbf{\epsilon}$+, \verb+$\symbf{\phi}$+ are output as
-\setmathfont{LatoMath.otf}[CharacterVariant={3,6}]$\symbf{\epsilon}$,
+\setmathfont{LeteSansMath.otf}[CharacterVariant={3,6}]$\symbf{\epsilon}$,
 $\symbf{\phi}$ instead of
-\setmathfont{LatoMath.otf}$\symbf{\epsilon}$, $\symbf{\phi}$.
+\setmathfont{LeteSansMath.otf}$\symbf{\epsilon}$, $\symbf{\phi}$.
 If \opt{math-style=french} has been chosen, \verb+\epsilon+ and \verb+\phi+
 are output as $\symup{\varepsilon}$ and $\symup{\varphi}$ (upright).
 
@@ -297,7 +305,7 @@ Please note that curly braces are mandatory whenever more than one
 Note about \cmd{hbar}: \pkg{amsmath} provides two different glyphs
 (italic $h$ with horizontal or diagonal stroke) while \pkg{unicode-math}
 defines \cmd{hbar} as \cmd{hslash} (U+210F).
-\pkg{lato-math} follows \pkg{unicode-math}; the italic $h$ with horizontal
+\pkg{lete-sans-math} follows \pkg{unicode-math}; the italic $h$ with horizontal
 stroke can be printed using \cmd{hslash} or \cmd{hbar} together with character
 variant \texttt{cv01} or with \cmd{mithbar} (replacement for AMS’ command
 \cmd{hbar}).
@@ -310,7 +318,8 @@ variant \texttt{cv01} or with \cmd{mithbar} (replacement for AMS’ command
 glyphs for families of maths symbols.
 
 \verb+StylisticSet=4+, alias%
-\footnote{These \texttt{Style} aliases are provided by \file{lato-math.sty}.}
+\footnote{These \texttt{Style} aliases are provided by
+  \file{lete-sans-math.sty}.}
 \verb+Style=leqslant+, converts inequalities into their slanted  variants, see
 table~\vref{ss04}.
 
@@ -396,20 +405,21 @@ symbols, as shown in table~\vref{ss06}.
 
 To enable Stylistic Sets  4 and 8 for \LAotf{}, you should enter
 
-\verb+\setmathfont{LatoMath.otf}[StylisticSet={4,8}]  or+\\
-\verb+\usepackage[Style={leqslant,upint}]{lato-math}+
+\verb+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]  or+\\
+\verb+\usepackage[Style={leqslant,upint}]{lete-sans-math}+
 
 then, \verb+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]+
 will print as
-\setmathfont{LatoMath.otf}[StylisticSet={4,8}]
+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]
 \[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
 instead of
-\setmathfont{LatoMath.otf}
+\setmathfont{LeteSansMath.otf}
 \[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
 
 %\pagebreak[4]
 \verb+StylisticSet=8+, alias%
-\footnote{These \texttt{Style} aliases are provided by \file{lato-math.sty}.}
+\footnote{These \texttt{Style} aliases are provided by
+  \file{lete-sans-math.sty}.}
 \verb+Style=upint+, converts integrals signs into their upright
 variants, see table~\vref{ss08}.
 \begin{table}[ht]
@@ -424,12 +434,12 @@ variants, see table~\vref{ss08}.
     Default\rule[-15pt]{0pt}{35pt}   &$\DS\int$ &$\DS\iint$ &$\DS\iiint$ &$\DS\iiiint$
                    &$\DS\oint$ &$\DS\oiint$ &$\DS\oiiint$
     \\[\baselineskip]
-    \setmathfont{LatoMath.otf}[Style=upint]
+    \setmathfont{LeteSansMath.otf}[Style=upint]
     Upright\rule[-15pt]{0pt}{30pt}   &$\DS\int$ &$\DS\iint$  &$\DS\iiint$ &$\DS\iiiint$
                    &$\DS\oint$ &$\DS\oiint$  &$\DS\oiiint$ \\
     \hline
   \end{tabular}\\[\baselineskip]
-  \setmathfont{LatoMath.otf}
+  \setmathfont{LeteSansMath.otf}
   \begin{tabular}[t]{@{}l*{4}c@{}}
     \hline
     Command  &\scmd{intclockwise}  &\scmd{awint}
@@ -437,32 +447,32 @@ variants, see table~\vref{ss08}.
     \hline
     Default\rule[-15pt]{0pt}{35pt} &$\DS\intclockwise$ &$\DS\awint$
                    &$\DS\varointclockwise$ &$\DS\ointctrclockwise$ \\
-    \setmathfont{LatoMath.otf}[Style=upint]
+    \setmathfont{LeteSansMath.otf}[Style=upint]
     Upright\rule[-15pt]{0pt}{30pt}  &$\DS\intclockwise$ &$\DS\awint$
                    &$\DS\varointclockwise$  &$\DS\ointctrclockwise$ \\
     \hline
   \end{tabular}
 \end{table}
-\setmathfont{LatoMath.otf}
+\setmathfont{LeteSansMath.otf}
 
 \subsection{Other font features}
 \label{ssec-other-features}
 
 To get oldstyle numbers in maths, the feature \texttt{+onum} is available:
 
-\verb+\setmathfont{LatoMath.otf}[Numbers=OldStyle]  or+\\
-\verb+\usepackage[Style=fulloldstyle]{lato-math}+
+\verb+\setmathfont{LeteSansMath.otf}[Numbers=OldStyle]  or+\\
+\verb+\usepackage[Style=fulloldstyle]{lete-sans-math}+
 
-\setmathfont{LatoMath.otf}[Numbers=OldStyle]
+\setmathfont{LeteSansMath.otf}[Numbers=OldStyle]
 $0123456789, \symbf{0123456789}$
-\setmathfont{LatoMath.otf}
+\setmathfont{LeteSansMath.otf}
 
 \subsection{Standard LaTeX maths commands}
 \label{ssec-math-commands}
 
 All standard LaTeX maths commands, all \pkg{amssymb} commands and all
-\pkg{latexsym} commands are supported by \LAotf{}, for some of them loading
-\pkg{lato-math.sty} is required.
+\pkg{latexsym} commands are supported, for some of them loading
+\pkg{lete-sans-math.sty} is required.
 
 Various wide accents and extensible arrows are also supported:
 \begin{itemize}
@@ -548,7 +558,8 @@ Various wide accents and extensible arrows are also supported:
 \end{itemize}
 
 All the extensible arrows provided by the \pkg{mathtools} package are
-available in the \LAotf{} font (loading \pkg{lato-math.sty} is required), f.i.:
+available in the \LAotf{} font (loading \pkg{lete-sans-math.sty} is required),
+f.i.:
 \[X \xLeftrightarrow{\text{above}} Y \xhookrightarrow[\text{under}]{}
   Z\xmapsto{\text{above}} W\]
 
@@ -620,7 +631,7 @@ but it can be borrowed from  another maths font.
 %\verb+$\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
 \end{itemize}
 
-Like Latin Modern, \pkg{lato-math} provides only four lowercase Latin
+Like Latin Modern, \pkg{lete-sans-math} provides only four lowercase Latin
 letters in script (or calligraphic) shape: $\mscre$, $\mscrg$, $\ell$,
 $\mscro$ (\verb+\mscre+, \verb+\mscrg+, \verb+\ell+, \verb+\mscro+).
 
@@ -632,24 +643,24 @@ from another maths font if needed, i.e.
 
 \subsection{Bold variant}
 
-\setmathfont{LatoMath.otf}[BoldFont=LatoMath-Bold.otf]
+\setmathfont{LeteSansMath.otf}[BoldFont=LeteSansMath-Bold.otf]
 In case short maths formulas have to be printed in section titles,
 a \emph{limited} bold variant is provided. Example of usage:\quad
 \textbf{\boldmath Einstein’s equation $E=mc^2$}
 
-\verb+\setmathfont{LatoMath-Bold.otf}[version=bold, +\textit{options}\verb+]+\\
+\verb+\setmathfont{LeteSansMath-Bold.otf}[version=bold, +\textit{options}\verb+]+\\
 \verb+\section{\mathversion{bold} Einstein’s equation $E=mc^2$}+
 
 It is also possible to use the \verb+\boldmath+ command%
 \footnote{The \cmd{boldmath} command works out of the box when
-  \pkg{lato-math.sty} is loaded.}:
+  \pkg{lete-sans-math.sty} is loaded.}:
 
-\verb+\setmathfont{LatoMath-Regular.otf}[BoldFont=LatoMath-Bold.otf]+\\
+\verb+\setmathfont{LeteSansMath.otf}[BoldFont=LeteSansMath-Bold.otf]+\\
 \verb+\section{\boldmath Einstein’s equation $E=mc^2$}+
 
 \subsection{Missing symbols}
 
-\LAotf{} is fairly complete (see file \file{unimath-lato.pdf}),
+\LAotf{} is fairly complete (see file \file{unimath-lete.pdf}),
 if you happen to need some of the few missing glyphs you can borrow them from
 a more complete font, say \file{New Computer Modern}. For instance if you need
 Italic Blackboard Bold (U+2145 to U+2149) you could try:
