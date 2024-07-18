@@ -52,6 +52,10 @@ See the documentation `LeteSansMath.pdf` for details.
 
 ## Changes
 
+### v0.41 (2024-07-18)
+
+* Added feature `cv11` to provide a single-storey variant for the lowercase letter g.
+
 ### v0.40 (2024-05-12)
 
 * Rename the font as 'Lete Sans Math' due to copyright reasons.
