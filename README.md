@@ -65,6 +65,11 @@ See the documentation `LeteSansMath.pdf` for details.
 
 ## Changes
 
+### v0.44 (2024-11-24)
+
+- Triple and quadruple stroked arrows (U+21DA, U+21DB, U+2B45, U+2B46)
+  are extensible again.
+
 ### v0.43 (2024-11-23)
 
 - Glyphs U+0332 and U+23DC to U+23DF resized for consistency.
