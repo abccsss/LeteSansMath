@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\def\fileversion{0.44}
-\def\filedate{2024-11-24}
+\def\fileversion{0.45}
+\def\filedate{2024-12-14}
 \ProvidesPackage{lete-sans-math}[\filedate\space\fileversion]
 
 % Ensure luatex or xetex engine
@@ -47,6 +47,10 @@
     [\unexpanded\expandafter{\the\LeteMtoks}]%
   }
   \temp
+% For Maths operators in case Lato isn't the main text font.
+\setmathfontface\mathrm{Lato-Regular.ttf}
+\setmathfontface\mathit{Lato-Italic.ttf}
+\setmathfontface\mathbf{Lato-Bold.ttf}
 %
 \ifLete@tight
   \thinmuskip=2mu

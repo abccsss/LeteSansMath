@@ -21,17 +21,13 @@ You can also view the package on
   — The OpenType font file for the bold variant (limited coverage).
 - `lete-sans-math.sty`
   — The LaTeX style file.
-- `LeteSansMath.pdf`
-  — Documentation of the package.
 - `LeteSansMath.ltx`
-  — The LaTeX source of `LeteSansMath.pdf`.
-- `unimath-lete.pdf`
-  — A modified version of `unimath-symbols.pdf`
+  — Source file for documentation of the package.
+- `unimath-lete.ltx`
+  — Source file for a modified version of `unimath-symbols.pdf`
   from the `unicode-math` package,
   showing available Lete Sans Math symbols compared
   to other sans-serif math fonts.
-- `unimath-lete.ltx`
-  — The LaTeX source of `unimath-lete.pdf`.
 
 ## Usage
 
@@ -44,7 +40,7 @@ This package is meant to be installed automatically by TeX Live, MikTeX, etc. Us
 to load the package.
 The package requires XeLaTeX or LuaLaTeX to compile.
 For more information such as package options,
-see the documentation `LeteSansMath.pdf`.
+see the documentation.
 
 To load the package manually, place the files
 `lete-sans-math.sty`, `LeteSansMath.otf`, and `LeteSansMath-Bold.otf`
@@ -52,7 +48,7 @@ in your project directory,
 and use the same call as above.
 
 It is also possible to use the font without the `lete-sans-math` package.
-See the documentation `LeteSansMath.pdf` for details.
+See the documentation for details.
 
 ## License
 
@@ -64,6 +60,11 @@ See the documentation `LeteSansMath.pdf` for details.
   [LaTeX Project Public License (LPPL) Version 1.3c](https://ctan.org/tex-archive/macros/latex/base/lppl.txt).
 
 ## Changes
+
+### v0.45 (2024-12-14)
+
+- Displayed integrals and big operators are now vertically aligned on
+  the math axis (#13).
 
 ### v0.44 (2024-11-24)
 
