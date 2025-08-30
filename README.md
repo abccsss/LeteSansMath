@@ -61,10 +61,22 @@ See the documentation for details.
 
 ## Changes
 
+### v0.50 (2025-08-30)
+
+- Fixed issue [#14](https://github.com/abccsss/LeteSansMath/issues/14)
+  (discrepancy between `\usepackage` and `\setmathfont`).
+- Math table fixes for glyph horizontal/vertical composition.
+- `DisplayOperatorMinHeight` and `DelimitedSubFormulaMinHeight` set 
+  to `1400` instead of `1500`.
+- Glyphs U+2A00 to U+2A0B vertically centered on the math axis.
+- Glyphs U+2032 to U+2037 and U+2057 (prime and co.) resized so that f.i. 
+  `\(f'\)`, `\(f\prime\)` and `\(f^{\prime}\)` produce the same output, see 
+  [here](https://github.com/notofonts/math/blob/main/documentation/building-math-fonts/).
+
 ### v0.45 (2024-12-14)
 
 - Displayed integrals and big operators are now vertically aligned on
-  the math axis (#13).
+  the math axis ([#13](https://github.com/abccsss/LeteSansMath/issues/13)).
 
 ### v0.44 (2024-11-24)
 

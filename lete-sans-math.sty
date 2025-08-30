@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\def\fileversion{0.45}
-\def\filedate{2024-12-14}
+\def\fileversion{0.50}
+\def\filedate{2025-08-30}
 \ProvidesPackage{lete-sans-math}[\filedate\space\fileversion]
 
 % Ensure luatex or xetex engine
@@ -16,8 +16,15 @@
 \newopentypefeature{Style}{upneg}{+ss09}
 
 \newtoks\LeteMtoks
+\newtoks\LeteScale
 \newcommand*{\Letestore@KV@Option}[2]{%
-  \LeteMtoks=\expandafter{\the\LeteMtoks #1={#2},}}
+  \LeteMtoks=\expandafter{\the\LeteMtoks #1={#2},}
+  \def\Lete@opt{#1}%
+  \def\Lete@scale{Scale}%
+  \ifx\Lete@opt\Lete@scale
+    \LeteScale=\expandafter{Scale={#2}}%
+  \fi
+}
 
 % Package options:
 \DeclareKeys
@@ -32,7 +39,11 @@
    CharacterVariant.code = \Letestore@KV@Option{CharacterVariant}{#1} ,
    StylisticSet.code     = \Letestore@KV@Option{StylisticSet}{#1}     ,
    Style.code            = \Letestore@KV@Option{Style}{#1}            ,
-   Scale.code            = \Letestore@KV@Option{Scale}{#1}
+   Scale.code            = \Letestore@KV@Option{Scale}{#1}            ,
+   textrm.if             = Lete@textrm                                ,
+   textit.if             = Lete@textit                                ,
+   textbf.if             = Lete@textbf                                ,
+   textsf.if             = Lete@textsf
   }
 %
 \ProcessKeyOptions
@@ -48,9 +59,27 @@
   }
   \temp
 % For Maths operators in case Lato isn't the main text font.
-\setmathfontface\mathrm{Lato-Regular.ttf}
-\setmathfontface\mathit{Lato-Italic.ttf}
-\setmathfontface\mathbf{Lato-Bold.ttf}
+\begingroup
+  \edef\temp{%
+    \endgroup
+    \ifLete@textrm\else
+      \noexpand\setmathfontface\noexpand\mathrm{Lato-Regular.ttf}%
+        [\unexpanded\expandafter{\the\LeteScale}]%
+    \fi
+    \ifLete@textit\else
+      \noexpand\setmathfontface\noexpand\mathit{Lato-Italic.ttf}%
+        [\unexpanded\expandafter{\the\LeteScale}]%
+    \fi
+    \ifLete@textbf\else
+      \noexpand\setmathfontface\noexpand\mathbf{Lato-Bold.ttf}%
+        [\unexpanded\expandafter{\the\LeteScale}]%
+    \fi
+    \ifLete@textsf\else
+      \noexpand\setmathfontface\noexpand\mathsf{Lato-Regular.ttf}%
+        [\unexpanded\expandafter{\the\LeteScale}]%
+    \fi
+  }
+  \temp
 %
 \ifLete@tight
   \thinmuskip=2mu
