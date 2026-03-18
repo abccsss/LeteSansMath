@@ -36,6 +36,7 @@
 \newcommand*{\LAotf}{Lete~Sans~Math}
 \newcommand*{\pkg}[1]{\texttt{#1}}
 \newcommand*{\file}[1]{\texttt{#1}}
+\newcommand*{\ttbold}[1]{\texttt{\textbf{#1}}}
 \newcommand*{\opt}[1]{\texttt{#1}}
 \newcommand*{\cmd}[1]{\texttt{\textbackslash #1}}
 \newcommand*{\scmd}[1]{\texttt{\small\textbackslash #1}}
@@ -49,7 +50,7 @@
 \author{Chenjing Bu --- Daniel Flipo\\
         \url{https://github.com/abccsss/LeteSansMath}}
 
-\newcommand*{\version}{0.50}
+\newcommand*{\version}{0.60}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 3pt minus 3pt}
 
@@ -315,20 +316,45 @@ variant \texttt{cv01} or with \cmd{mithbar} (replacement for AMS’ command
 \subsection{Stylistic sets}
 \label{ssection-ss}
 
-\LAotf{} provides five ``Stylistic Sets'' options to choose between different
+\LAotf{} provides seven ``Stylistic Sets'' options to choose between different
 glyphs for families of maths symbols.
 
-\verb+StylisticSet=4+, alias%
+\ttbold{StylisticSet=1}, alias%
 \footnote{These \texttt{Style} aliases are provided by
-  \file{lete-sans-math.sty}.}
-\verb+Style=leqslant+, converts inequalities into their slanted  variants, see
-table~\vref{ss04}.
+\file{lete-sans-math.sty}.}
+\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]
+\ttbold{Style=mathcal} is new to version~0.60.
+It forces commands \verb|\mathcal{}| and \verb|\mathscr{}|
+to print $\mathcal{ABC}$ (former shape) instead of $\mathscr{ABC}$
+(the new default in v.~0.60).
+Please note that \pkg{unicode-math} recommends to use \cmd{symcal} and
+\cmd{symscr} instead of \cmd{mathcal} and \cmd{mathscr}.
 
-\verb+StylisticSet=5+, alias \verb+Style=smaller+, converts some symbols into
-their smaller variants, see table~\vref{ss05}.
+If you want to use both commands \verb|$\symcal{ABC}$| and
+\verb|$\symscr{ABC}$| to print $\symcal{ABC}$ and $\symscr{ABC}$
+respectively, you can use \pkg{unicode-math}’s option \verb|range| this way%
+\footnote{The \pkg{unicode-math} package is not yet able to make use of Unicode
+Variation Selectors U+FE00 and U+FE01 to switch between `cal’ and `scr’
+variants but these selectors are already implemented in \LAotf.}%
+:\\
+\verb|\setmathfont{LeteSansMath}[|\textit{your options}\verb|]|\\
+\verb|\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]|\\
+Both lines are mandatory: the first one loads {\LAotf} while the
+second one modifies \verb|\mathcal| and \verb|\symcal| commands’ output.
+
+\addtocounter{footnote}{-1}
+\ttbold{StylisticSet=4}, alias\footnotemark{}
+\ttbold{Style=leqslant}, converts inequalities into their slanted  variants,
+see table~\vref{ss04}.
+
+\addtocounter{footnote}{-1}
+\ttbold{StylisticSet=5}, alias\footnotemark{}
+\ttbold{Style=smaller}, converts some symbols
+into their smaller variants, see table~\vref{ss05}.
 \begin{table}[ht]
   \centering
   \caption{Stylistic Sets 4 and 5}
+  \addtocounter{table}{-1}% \subfloat steps counter table?
   \subfloat[\texttt{Style=leqslant\quad (+ss04)}]{\hlabel{ss04}%
   \begin{tabular}[t]{@{}lcc@{}}
     \hline
@@ -368,16 +394,21 @@ their smaller variants, see table~\vref{ss05}.
   \end{tabular}
   }% eof subfloat
 \end{table}
+\stepcounter{table}% \subfloat steps counter table?
 
-%\pagebreak[4]
-\verb+StylisticSet=6+, alias \verb+Style=subsetneq+, converts some inclusion
-symbols, as shown in table~\vref{ss06}.
+\addtocounter{footnote}{-1}
+\ttbold{StylisticSet=6}, alias\footnotemark{}
+\ttbold{Style=subsetneq}, converts some
+inclusion symbols, as shown in table~\vref{ss06}.
 
-\verb+StylisticSet=7+, alias \verb+Style=parallelslant+, converts
+\addtocounter{footnote}{-1}
+\ttbold{StylisticSet=7}, alias\footnotemark{}
+\ttbold{Style=parallelslant}, converts
 ``parallel'' symbols into their slanted variants, see table~\vref{ss07}.
 \begin{table}[ht]
   \centering
   \caption{Stylistic Sets 6 and 7}
+  \addtocounter{table}{-1}% \subfloat steps counter table?
   \subfloat[\texttt{Style=subsetneq\quad (+ss06)}]{\hlabel{ss06}%
   \begin{tabular}[t]{@{}lcc@{}}
     \hline
@@ -403,25 +434,11 @@ symbols, as shown in table~\vref{ss06}.
   \end{tabular}
   } % eof subfloat
 \end{table}
+\stepcounter{table}% \subfloat steps counter table?
 
-To enable Stylistic Sets  4 and 8 for \LAotf{}, you should enter
-
-\verb+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]  or+\\
-\verb+\usepackage[Style={leqslant,upint}]{lete-sans-math}+
-
-then, \verb+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]+
-will print as
-\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]
-\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
-instead of
-\setmathfont{LeteSansMath.otf}
-\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
-
-%\pagebreak[4]
-\verb+StylisticSet=8+, alias%
-\footnote{These \texttt{Style} aliases are provided by
-  \file{lete-sans-math.sty}.}
-\verb+Style=upint+, converts integrals signs into their upright
+\addtocounter{footnote}{-1}
+\ttbold{StylisticSet=8}, alias\footnotemark{}
+\ttbold{Style=upint}, converts integrals signs into their upright
 variants, see table~\vref{ss08}.
 \begin{table}[ht]
   \let\DS\displaystyle
@@ -455,6 +472,72 @@ variants, see table~\vref{ss08}.
   \end{tabular}
 \end{table}
 \setmathfont{LeteSansMath.otf}
+
+To enable Stylistic Sets  4 and 8 for \LAotf{}, you can enter\\
+\verb+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]  or+\\
+\verb+\usepackage[Style={leqslant,upint}]{lete-sans-math}+
+
+then, \verb+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]+
+will print as
+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]
+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
+instead of
+\setmathfont{LeteSansMath.otf}
+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
+
+\ttbold{StylisticSet=9}, alias%
+\footnote{These \texttt{Style} aliases are provided by
+\file{lete-sans-math.sty}.}
+\ttbold{Style=vertneg}, converts slanted negations into vertical ones.
+see table~\vref{ss09}.
+
+\begin{table}[ht]
+  \let\DS\displaystyle
+  \centering
+  \caption{Style=vertneg\quad  (+ss09)}\hlabel{ss09}
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command        & Default     & Variant \\
+    \hline
+      \cmd{notin}    & $\notin$    & $\vertnotin$  \\
+      \cmd{nni}      & $\nni$      & $\vertnni$  \\
+      \cmd{ne}       & $\ne$       & $\vertne$ \\
+      \cmd{nequiv}   & $\nequiv$   & $\vertnequiv$ \\
+      \cmd{nsim}     & $\nsim$     & $\vertnsim$ \\
+      \cmd{nsimeq}   & $\nsimeq$   & $\vertnsimeq$ \\
+      \cmd{ncong}    & $\ncong$    & $\vertncong$ \\
+      \cmd{nasymp}   & $\nasymp$   & $\vertnasymp$ \\
+      \cmd{ngtr}     & $\ngtr$     & $\vertngtr$  \\
+      \cmd{nless}    & $\nless$    & $\vertnless$ \\
+      \cmd{ngeq}     & $\ngeq$     & $\vertngeq$  \\
+      \cmd{nleq}     & $\nleq$     & $\vertnleq$ \\
+      \cmd{gneqq}    & $\gneqq$    & $\gvertneqq$ \\
+      \cmd{lneqq}    & $\lneqq$    & $\lvertneqq$  \\
+  \hline
+  \end{tabular}
+  \hfill
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command            & Default         & Variant \\
+    \hline
+      \cmd{ngtrless}     & $\ngtrless$     & $\vertngtrless$ \\
+      \cmd{nlessgtr}     & $\nlessgtr$     & $\vertnlessgtr$ \\
+      \cmd{nlesssim}     & $\nlesssim$     & $\vertnlesssim$ \\
+      \cmd{ngtrsim}      & $\ngtrsim$      & $\vertngtrsim$ \\
+      \cmd{nprec}        & $\nprec$        & $\vertnprec$ \\
+      \cmd{nsucc}        & $\nsucc$        & $\vertnsucc$ \\
+      \cmd{npreccurlyeq} & $\npreccurlyeq$ & $\vertnpreccurlyeq$ \\
+      \cmd{nsucccurlyeq} & $\nsucccurlyeq$ & $\vertnsucccurlyeq$ \\
+      \cmd{nsubset}      & $\nsubset$      & $\vertnsubset$ \\
+      \cmd{nsupset}      & $\nsupset$      & $\vertnsupset$ \\
+      \cmd{nsubseteq}    & $\nsubseteq$    & $\vertnsubseteq$ \\
+      \cmd{nsupseteq}    & $\nsupseteq$    & $\vertnsupseteq$ \\
+      \cmd{ntrianglelefteq}  & $\ntrianglelefteq$  & $\vertntrianglelefteq$ \\
+      \cmd{ntrianglerighteq} & $\ntrianglerighteq$ & $\vertntrianglerighteq$ \\
+   \hline
+  \end{tabular}
+\end{table}
+
 
 \subsection{Other font features}
 \label{ssec-other-features}
@@ -558,15 +641,14 @@ Various wide accents and extensible arrows are also supported:
   \]
 \end{itemize}
 
-All the extensible arrows provided by the \pkg{mathtools} package are
-available in the \LAotf{} font (loading \pkg{lete-sans-math.sty} is required),
+All extensible arrows provided by the \pkg{mathtools} package are
+available in LeteSansMath (loading \pkg{lete-sans-math.sty} is required),
 f.i.:
 \[X \xLeftrightarrow{\text{above}} Y \xhookrightarrow[\text{under}]{}
   Z\xmapsto{\text{above}} W\]
 
 A wide range of extensible vertical delimiters is provided:
-
-\[ \left/
+\[\left/
   \begin{pmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{pmatrix}
   \begin{bmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{bmatrix}
   \begin{Bmatrix}  a_{1} \\ a_{2} \\  a_{3}  \end{Bmatrix}

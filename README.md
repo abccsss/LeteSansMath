@@ -61,6 +61,26 @@ See the documentation for details.
 
 ## Changes
 
+### v0.60 (2026-03-18)
+
+- New calligraphic capitals (unmodulated script) replace the former
+  Chancery style which are still accessible with `StylisticSet=1`.
+- Former Chancery style capitals heve been slightly emboldened
+  ([#9](https://github.com/abccsss/LeteSansMath/issues/9)).
+- New `StylisticSet=9` converts slanted negations into vertical ones.
+- Display version added to `biginterleave` (U+2AFC) and `bigtalloblong` (U+2AFF)
+- Invisible Math operators (U+2061 to U+2064) added.
+- Variation Selectors (U+FE00 and U+FE01) added.
+- Compatibility with Typst v0.14: all glyphs used in vertical compositions
+  now sit on the baseline (only up and down arrows had to be fixed).
+- Extensible over/under-accents and over/under-arrows resized for smoother
+  variation.
+- Math table Sub/Superscripts parameters tuned, see
+  [here](https://tex.stackexchange.com/questions/759695/).
+- Math table fixes for better positioning subscripts of italic and
+  calligraphic glyphs.
+- Documentation updated to cover the new features.
+
 ### v0.50 (2025-08-30)
 
 - Fixed issue [#14](https://github.com/abccsss/LeteSansMath/issues/14)

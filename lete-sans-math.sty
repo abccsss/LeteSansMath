@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\def\fileversion{0.50}
-\def\filedate{2025-08-30}
+\def\fileversion{0.60}
+\def\filedate{2026-03-18}
 \ProvidesPackage{lete-sans-math}[\filedate\space\fileversion]
 
 % Ensure luatex or xetex engine
@@ -8,12 +8,13 @@
 \RequireTUTeX
 \RequirePackage{unicode-math}
 
+\newopentypefeature{Style}{mathcal}{+ss01}
 \newopentypefeature{Style}{leqslant}{+ss04}
 \newopentypefeature{Style}{smaller}{+ss05}
 \newopentypefeature{Style}{subsetneq}{+ss06}
 \newopentypefeature{Style}{parallelslant}{+ss07}
 \newopentypefeature{Style}{upint}{+ss08}
-\newopentypefeature{Style}{upneg}{+ss09}
+\newopentypefeature{Style}{vertneg}{+ss09}
 
 \newtoks\LeteMtoks
 \newtoks\LeteScale
@@ -91,37 +92,63 @@
   % LeteSansMath specific
   % \Umathchardef\<cmd> = <math type> <family> <slot>
   % <math type> : \mathord=0 \mathrel=3 ; <family>=0
-  \Umathchardef\mbfimath =            0 0 "E041 \relax
-  \Umathchardef\mbfjmath =            0 0 "E042 \relax
-  \Umathchardef\mbfdotlessi =         0 0 "E043 \relax
-  \Umathchardef\mbfdotlessj =         0 0 "E044 \relax
-  \Umathchardef\mithbar =             0 0 "E048 \relax
-  \Umathchardef\mupvarg =             0 0 "E04B \relax
-  \Umathchardef\mbfvarg =             0 0 "E04C \relax
-  \Umathchardef\mitvarg =             0 0 "E04D \relax
-  \Umathchardef\mbfitvarg =           0 0 "E04E \relax
-  \Umathchardef\varemptyset =         0 0 "E04F \relax
-  \Umathchardef\BbbDelta =            0 0 "E050 \relax
-  \Umathchardef\BbbTheta =            0 0 "E051 \relax
-  \Umathchardef\BbbLambda =           0 0 "E052 \relax
-  \Umathchardef\BbbXi =               0 0 "E053 \relax
-  \Umathchardef\BbbSigma =            0 0 "E054 \relax
-  \Umathchardef\BbbPhi =              0 0 "E055 \relax
-  \Umathchardef\BbbPsi =              0 0 "E056 \relax
-  \Umathchardef\BbbOmega =            0 0 "E057 \relax
-  \Umathchardef\lesseqslantgtr =      3 0 "E060 \relax
-  \Umathchardef\gtreqslantless =      3 0 "E061 \relax
-  \Umathchardef\lesseqqslantgtr =     3 0 "E062 \relax
-  \Umathchardef\gtreqqslantless =     3 0 "E063 \relax
-  \Umathchardef\nleqqslant =          3 0 "E066 \relax
-  \Umathchardef\ngeqqslant =          3 0 "E067 \relax
-  \Umathchardef\parallelslant  =      3 0 "E080 \relax
-  \Umathchardef\nparallelslant =      3 0 "E081 \relax
-  \Umathchardef\shortparallelslant =  3 0 "E082 \relax
-  \Umathchardef\nshortparallelslant = 3 0 "E083 \relax
-  \Umathchardef\mapstochar =          3 0 "E08D \relax
-  \Umathchardef\lhook =               3 0 "E08E \relax
-  \Umathchardef\rhook =               3 0 "E08F \relax
+  \Umathchardef\vertnotin =            0 0 "E020 \relax
+  \Umathchardef\vertnni =              0 0 "E021 \relax
+  \Umathchardef\vertnsim =             0 0 "E022 \relax
+  \Umathchardef\vertnsimeq =           0 0 "E023 \relax
+  \Umathchardef\vertncong =            0 0 "E024 \relax
+  \Umathchardef\vertne =               0 0 "E025 \relax
+  \Umathchardef\vertnequiv =           0 0 "E026 \relax
+  \Umathchardef\vertnasymp =           0 0 "E029 \relax
+  \Umathchardef\vertnless =            0 0 "E02A \relax
+  \Umathchardef\vertngtr =             0 0 "E02B \relax
+  \Umathchardef\vertnleq =             0 0 "E02C \relax
+  \Umathchardef\vertngeq =             0 0 "E02D \relax
+  \Umathchardef\vertnlesssim =         0 0 "E02E \relax
+  \Umathchardef\vertngtrsim =          0 0 "E02F \relax
+  \Umathchardef\vertnlessgtr =         0 0 "E030 \relax
+  \Umathchardef\vertngtrless =         0 0 "E031 \relax
+  \Umathchardef\vertnprec  =           0 0 "E032 \relax
+  \Umathchardef\vertnsucc =            0 0 "E033\relax
+  \Umathchardef\vertnsubset =          0 0 "E034 \relax
+  \Umathchardef\vertnsupset =          0 0 "E035 \relax
+  \Umathchardef\vertnsubseteq =        0 0 "E036\relax
+  \Umathchardef\vertnsupseteq =        0 0 "E037 \relax
+  \Umathchardef\vertnpreccurlyeq =     0 0 "E038 \relax
+  \Umathchardef\vertnsucccurlyeq =     0 0 "E039\relax
+  \Umathchardef\vertntrianglelefteq =  0 0 "E03A \relax
+  \Umathchardef\vertntrianglerighteq = 0 0 "E03B \relax
+  \Umathchardef\mbfimath =             0 0 "E041 \relax
+  \Umathchardef\mbfjmath =             0 0 "E042 \relax
+  \Umathchardef\mbfdotlessi =          0 0 "E043 \relax
+  \Umathchardef\mbfdotlessj =          0 0 "E044 \relax
+  \Umathchardef\mithbar =              0 0 "E048 \relax
+  \Umathchardef\mupvarg =              0 0 "E04B \relax
+  \Umathchardef\mbfvarg =              0 0 "E04C \relax
+  \Umathchardef\mitvarg =              0 0 "E04D \relax
+  \Umathchardef\mbfitvarg =            0 0 "E04E \relax
+  \Umathchardef\varemptyset =          0 0 "E04F \relax
+  \Umathchardef\BbbDelta =             0 0 "E050 \relax
+  \Umathchardef\BbbTheta =             0 0 "E051 \relax
+  \Umathchardef\BbbLambda =            0 0 "E052 \relax
+  \Umathchardef\BbbXi =                0 0 "E053 \relax
+  \Umathchardef\BbbSigma =             0 0 "E054 \relax
+  \Umathchardef\BbbPhi =               0 0 "E055 \relax
+  \Umathchardef\BbbPsi =               0 0 "E056 \relax
+  \Umathchardef\BbbOmega =             0 0 "E057 \relax
+  \Umathchardef\lesseqslantgtr =       3 0 "E060 \relax
+  \Umathchardef\gtreqslantless =       3 0 "E061 \relax
+  \Umathchardef\lesseqqslantgtr =      3 0 "E062 \relax
+  \Umathchardef\gtreqqslantless =      3 0 "E063 \relax
+  \Umathchardef\nleqqslant =           3 0 "E066 \relax
+  \Umathchardef\ngeqqslant =           3 0 "E067 \relax
+  \Umathchardef\parallelslant  =       3 0 "E080 \relax
+  \Umathchardef\nparallelslant =       3 0 "E081 \relax
+  \Umathchardef\shortparallelslant =   3 0 "E082 \relax
+  \Umathchardef\nshortparallelslant =  3 0 "E083 \relax
+  \Umathchardef\mapstochar =           3 0 "E08D \relax
+  \Umathchardef\lhook =                3 0 "E08E \relax
+  \Umathchardef\rhook =                3 0 "E08F \relax
   % amssymb
   \@ifpackageloaded{amssymb}%
     {\PackageWarning{lete-sans-math}{%
@@ -136,8 +163,8 @@
      \Umathchardef\circledS =       0 0 "24C8 \relax
      \Umathchardef\diagup =         0 0 "27CB \relax
      \Umathchardef\diagdown =       0 0 "27CD \relax
-     \Umathchardef\lvertneqq =      3 0 "E002 \relax
-     \Umathchardef\gvertneqq =      3 0 "E003 \relax
+     \Umathchardef\lvertneqq =      3 0 "E027 \relax
+     \Umathchardef\gvertneqq =      3 0 "E028 \relax
      \Umathchardef\varsubsetneq =   3 0 "E006 \relax
      \Umathchardef\varsupsetneq =   3 0 "E007 \relax
      \Umathchardef\varsubsetneqq =  3 0 "E015 \relax
@@ -154,28 +181,28 @@
      \Umathchardef\nsucceq =        3 0 "E07D \relax
      \Umathchardef\nsubseteqq =     3 0 "E07E \relax
      \Umathchardef\nsupseteqq =     3 0 "E07F \relax
-     \let\centerdot\cdotp
-     \let\restriction\upharpoonright
-     \let\doteqdot\Doteq
-     \let\doublecup\Cup
-     \let\doublecap\Cap
-     \let\llless\lll
-     \let\gggtr\ggg
-     \let\circlearrowleft\acwopencirclearrow
-     \let\circlearrowright\cwopencirclearrow
-     \let\lozenge\mdlgwhtlozenge
-     \let\blacklozenge\mdlgblklozenge
-     \let\square\mdlgwhtsquare
-     \let\blacksquare\mdlgblksquare
-     \let\dashleftarrow\leftdasharrow
-     \let\dashrightarrow\rightdasharrow
-     \let\ntriangleleft\nvartriangleleft
-     \let\ntriangleright\nvartriangleright
-     \let\varpropto\propto
-     \let\thicksim\sim
-     \let\thickapprox\approx
-     \let\smallsmile\smile
-     \let\smallfrown\frown
+     \protected\def\centerdot{\cdotp}%
+     \protected\def\restriction{\upharpoonright}%
+     \protected\def\doteqdot{\Doteq}%
+     \protected\def\doublecup{\Cup}%
+     \protected\def\doublecap{\Cap}%
+     \protected\def\llless{\lll}%
+     \protected\def\gggtr{\ggg}%
+     \protected\def\circlearrowleft{\acwopencirclearrow}%
+     \protected\def\circlearrowright{\cwopencirclearrow}%
+     \protected\def\lozenge{\mdlgwhtlozenge}%
+     \protected\def\blacklozenge{\mdlgblklozenge}%
+     \protected\def\square{\mdlgwhtsquare}%
+     \protected\def\blacksquare{\mdlgblksquare}%
+     \protected\def\dashleftarrow{\leftdasharrow}%
+     \protected\def\dashrightarrow{\rightdasharrow}%
+     \protected\def\ntriangleleft{\nvartriangleleft}%
+     \protected\def\ntriangleright{\nvartriangleright}%
+     \protected\def\varpropto{\propto}%
+     \protected\def\thicksim{\sim}%
+     \protected\def\thickapprox{\approx}%
+     \protected\def\smallsmile{\smile}%
+     \protected\def\smallfrown{\frown}%
     }%
   % latexsym
   \@ifpackageloaded{latexsym}%
@@ -184,13 +211,13 @@
        Loading latexsym.sty is not advisable.\MessageBreak
        Reported}%
     }%
-    {\let\lhd\vartriangleleft
-     \let\rhd\vartriangleright
-     \let\unlhd\trianglelefteq
-     \let\unrhd\trianglerighteq
-     \let\leadsto\rightcurvedarrow
-     \let\Box\lgwhtsquare
-     \let\Diamond\mdlgwhtdiamond
+    {\protected\def\lhd{\vartriangleleft}%
+     \protected\def\rhd{\vartriangleright}%
+     \protected\def\unlhd{\trianglelefteq}%
+     \protected\def\unrhd{\trianglerighteq}%
+     \protected\def\leadsto{\rightcurvedarrow}%
+     \protected\def\Box{\lgwhtsquare}%
+     \protected\def\Diamond{\mdlgwhtdiamond}%
     }%
 }
 
