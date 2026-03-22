@@ -50,7 +50,7 @@
 \author{Chenjing Bu --- Daniel Flipo\\
         \url{https://github.com/abccsss/LeteSansMath}}
 
-\newcommand*{\version}{0.60}
+\newcommand*{\version}{0.61}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 3pt minus 3pt}
 
@@ -103,6 +103,7 @@ A basic call for \LAotf{} would be:
 \setmathfont{LeteSansMath.otf}  % Call by file name or
 \setmathfont{Lete Sans Math}    % Call by font name
 \end{verbatim}
+%
 this loads \LAotf{} as maths font%
 \footnote{Both calls work equally well with LuaTeX; with XeTeX a call by font
   name will fail unless the font is declared as a \emph{system font}.}
@@ -342,10 +343,48 @@ variants but these selectors are already implemented in \LAotf.}%
 Both lines are mandatory: the first one loads {\LAotf} while the
 second one modifies \verb|\mathcal| and \verb|\symcal| commands’ output.
 
-\addtocounter{footnote}{-1}
+\addtocounter{footnote}{-2}
 \ttbold{StylisticSet=4}, alias\footnotemark{}
 \ttbold{Style=leqslant}, converts inequalities into their slanted  variants,
 see table~\vref{ss04}.
+\begin{table}[ht]
+  \centering
+  \caption{Style=leqslant  (+ss04)}
+  \hlabel{ss04}
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command           & Default         & Variant \\
+    \hline
+      \cmd{leq}         & $\leq$         & $\leqslant$ \\
+      \cmd{nleq}        & $\nleq$        & $\nleqslant$ \\
+      \cmd{leqq}        & $\leqq$        & $\leqqslant$ \\
+      \cmd{nleqq}       & $\nleqq$       & $\nleqqslant$ \\
+      \cmd{lesssim}     & $\lesssim$     & $\lesssimslant$ \\
+      \cmd{simless}     & $\simless$     & $\simslantless$ \\
+      \cmd{smte}        & $\smte$        & $\smteslant$ \\
+      \cmd{eqless}      & $\eqless$      & $\eqslantless$ \\
+      \cmd{lesseqgtr}   & $\lesseqgtr$   & $\lesseqslantgtr$ \\
+      \cmd{lesseqqgtr}  & $\lesseqqgtr$  & $\lesseqqslantgtr$ \\
+   \hline
+  \end{tabular}
+  \hspace{1cm}
+  \begin{tabular}[t]{@{}lcc@{}}
+    \hline
+      Command           & Default         & Variant \\
+    \hline
+      \cmd{geq}         & $\geq$         & $\geqslant$ \\
+      \cmd{ngeq}        & $\ngeq$        & $\ngeqslant$ \\
+      \cmd{geqq}        & $\geqq$        & $\geqqslant$ \\
+      \cmd{ngeqq}       & $\ngeqq$       & $\ngeqqslant$ \\
+      \cmd{gtrsim}      & $\gtrsim$      & $\gtrsimslant$ \\
+      \cmd{simgtr}      & $\simgtr$      & $\simslantgtr$ \\
+      \cmd{late}        & $\late$        & $\lateslant$ \\
+      \cmd{eqgtr}       & $\eqgtr$       & $\eqslantgtr$ \\
+      \cmd{gtreqless}   & $\gtreqless$   & $\gtreqslantless$ \\
+      \cmd{gtreqqless}  & $\gtreqqless$  & $\gtreqqslantless$ \\
+   \hline
+  \end{tabular}
+\end{table}
 
 \addtocounter{footnote}{-1}
 \ttbold{StylisticSet=5}, alias\footnotemark{}
@@ -353,31 +392,8 @@ see table~\vref{ss04}.
 into their smaller variants, see table~\vref{ss05}.
 \begin{table}[ht]
   \centering
-  \caption{Stylistic Sets 4 and 5}
-  \addtocounter{table}{-1}% \subfloat steps counter table?
-  \subfloat[\texttt{Style=leqslant\quad (+ss04)}]{\hlabel{ss04}%
-  \begin{tabular}[t]{@{}lcc@{}}
-    \hline
-      Command           & Default         & Variant \\
-    \hline
-      \cmd{leq}         & $\leq$         & $\leqslant$ \\
-      \cmd{geq}         & $\geq$         & $\geqslant$ \\
-      \cmd{nleq}        & $\nleq$        & $\nleqslant$ \\
-      \cmd{ngeq}        & $\ngeq$        & $\ngeqslant$ \\
-      \cmd{leqq}        & $\leqq$        & $\leqqslant$ \\
-      \cmd{geqq}        & $\geqq$        & $\geqqslant$ \\
-      \cmd{nleqq}       & $\nleqq$       & $\nleqqslant$ \\
-      \cmd{ngeqq}       & $\ngeqq$       & $\ngeqqslant$ \\
-      \cmd{eqless}      & $\eqless$      & $\eqslantless$ \\
-      \cmd{eqgtr}       & $\eqgtr$       & $\eqslantgtr$ \\
-      \cmd{lesseqgtr}   & $\lesseqgtr$   & $\lesseqslantgtr$ \\
-      \cmd{gtreqless}   & $\gtreqless$   & $\gtreqslantless$ \\
-      \cmd{lesseqqgtr}  & $\lesseqqgtr$  & $\lesseqqslantgtr$ \\
-      \cmd{gtreqqless}  & $\gtreqqless$  & $\gtreqqslantless$ \\
-   \hline
-  \end{tabular}
-  }\hspace{10mm} % eof subfloat
-  \subfloat[\texttt{Style=smaller\quad (+ss05)}]{\hlabel{ss05}%
+  \caption{Style=smaller  (+ss05)}
+  \hlabel{ss05}
   \begin{tabular}[t]{@{}lcc@{}}
     \hline
       Command                & Default             & Variant \\
@@ -392,9 +408,7 @@ into their smaller variants, see table~\vref{ss05}.
       \cmd{nparallelslant}   & $\nparallelslant$   & $\nshortparallelslant$ \\
    \hline
   \end{tabular}
-  }% eof subfloat
 \end{table}
-\stepcounter{table}% \subfloat steps counter table?
 
 \addtocounter{footnote}{-1}
 \ttbold{StylisticSet=6}, alias\footnotemark{}
@@ -436,10 +450,12 @@ inclusion symbols, as shown in table~\vref{ss06}.
 \end{table}
 \stepcounter{table}% \subfloat steps counter table?
 
-\addtocounter{footnote}{-1}
-\ttbold{StylisticSet=8}, alias\footnotemark{}
-\ttbold{Style=upint}, converts integrals signs into their upright
-variants, see table~\vref{ss08}.
+\clearpage
+\addtocounter{footnote}{1}
+\ttbold{StylisticSet=8}, alias%
+\footnote{These \texttt{Style} aliases are provided by
+\file{lete-sans-math.sty}.}
+
 \begin{table}[ht]
   \let\DS\displaystyle
   \centering
@@ -473,21 +489,10 @@ variants, see table~\vref{ss08}.
 \end{table}
 \setmathfont{LeteSansMath.otf}
 
-To enable Stylistic Sets  4 and 8 for \LAotf{}, you can enter\\
-\verb+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]  or+\\
-\verb+\usepackage[Style={leqslant,upint}]{lete-sans-math}+
-
-then, \verb+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]+
-will print as
-\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]
-\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
-instead of
-\setmathfont{LeteSansMath.otf}
-\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
-
-\ttbold{StylisticSet=9}, alias%
-\footnote{These \texttt{Style} aliases are provided by
-\file{lete-sans-math.sty}.}
+\addtocounter{footnote}{-1}
+\ttbold{StylisticSet=9}, alias\footnotemark{}
+\ttbold{Style=upint}, converts integrals signs into their upright
+variants, see table~\vref{ss08}.
 \ttbold{Style=vertneg}, converts slanted negations into vertical ones.
 see table~\vref{ss09}.
 
@@ -537,6 +542,19 @@ see table~\vref{ss09}.
    \hline
   \end{tabular}
 \end{table}
+
+\clearpage
+To enable Stylistic Sets  4 and 8 for \LAotf{}, you can enter\\
+\verb+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]  or+\\
+\verb+\usepackage[Style={leqslant,upint}]{lete-sans-math}+
+
+then, \verb+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]+
+will print as
+\setmathfont{LeteSansMath.otf}[StylisticSet={4,8}]
+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
+instead of
+\setmathfont{LeteSansMath.otf}
+\[x\leq y \quad \int_{a}^{b} f(x) \;\symup{d}x\]
 
 
 \subsection{Other font features}
@@ -665,17 +683,22 @@ A wide range of extensible vertical delimiters is provided:
 \subsection{Mathematical alphabets}
 \label{ssec-math-alphabets}
 
+\setmathfont{LeteSansMath}
+\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]
 \begin{itemize}
 \item  All Latin and Greek characters are available in italic, upright, bold
   and bold italic via the \verb+\symit{}+, \verb+\symup{}+, \verb+\symbf{}+
   and \verb+\symbfit{}+ commands.
 
-\item Calligraphic alphabet (\cmd{symscr} or \cmd{symcal} or
-  \cmd{mathcal} command), uppercase:
+\item Calligraphic alphabet (\cmd{symscr} or \cmd{symcal} command)%
+  \footnote{See section~\ref{ssection-ss} for alternate shapes:
+  $\symcal{ABCDEF}$ and $\symbfcal{ABCDEF}$.},
+  uppercase only:
 
   $\symscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
 
-  also in boldface (\cmd{symbfscr},\cmd{symbfcal} or \cmd{mathbfcal} command):
+  \addtocounter{footnote}{-1}
+  also in boldface (\cmd{symbfscr}, or \cmd{symbfcal} command)\footnotemark:
 
   $\symbfscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
 

@@ -61,11 +61,18 @@ See the documentation for details.
 
 ## Changes
 
+### v0.61 (2026-03-22)
+
+- Fixed variation selectors (U+FE00 and U+FE01)
+  ([#20](https://github.com/abccsss/LeteSansMath/issues/20)).
+- Fixed spaces width (U+2000 to U+200B and U+205F)
+  ([#21](https://github.com/abccsss/LeteSansMath/issues/21)).
+
 ### v0.60 (2026-03-18)
 
 - New calligraphic capitals (unmodulated script) replace the former
   Chancery style which are still accessible with `StylisticSet=1`.
-- Former Chancery style capitals heve been slightly emboldened
+- Former Chancery style capitals have been slightly emboldened
   ([#9](https://github.com/abccsss/LeteSansMath/issues/9)).
 - New `StylisticSet=9` converts slanted negations into vertical ones.
 - Display version added to `biginterleave` (U+2AFC) and `bigtalloblong` (U+2AFF)

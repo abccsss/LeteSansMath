@@ -1,6 +1,6 @@
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\def\fileversion{0.60}
-\def\filedate{2026-03-18}
+\def\fileversion{0.61}
+\def\filedate{2026-03-22}
 \ProvidesPackage{lete-sans-math}[\filedate\space\fileversion]
 
 % Ensure luatex or xetex engine
@@ -92,6 +92,16 @@
   % LeteSansMath specific
   % \Umathchardef\<cmd> = <math type> <family> <slot>
   % <math type> : \mathord=0 \mathrel=3 ; <family>=0
+  \Umathchardef\lesssimslant =         3 0 "E004 \relax
+  \Umathchardef\gtrsimslant =          3 0 "E005 \relax
+  \Umathchardef\simslantless =         3 0 "E011 \relax
+  \Umathchardef\simslantgtr =          3 0 "E012 \relax
+  \Umathchardef\lesseqslantgtr =       3 0 "E00D \relax
+  \Umathchardef\gtreqslantless =       3 0 "E00E \relax
+  \Umathchardef\lesseqqslantgtr =      3 0 "E017 \relax
+  \Umathchardef\gtreqqslantless =      3 0 "E018 \relax
+  \Umathchardef\smteslant =            0 0 "E013 \relax
+  \Umathchardef\lateslant =            0 0 "E014 \relax
   \Umathchardef\vertnotin =            0 0 "E020 \relax
   \Umathchardef\vertnni =              0 0 "E021 \relax
   \Umathchardef\vertnsim =             0 0 "E022 \relax
@@ -136,10 +146,6 @@
   \Umathchardef\BbbPhi =               0 0 "E055 \relax
   \Umathchardef\BbbPsi =               0 0 "E056 \relax
   \Umathchardef\BbbOmega =             0 0 "E057 \relax
-  \Umathchardef\lesseqslantgtr =       3 0 "E060 \relax
-  \Umathchardef\gtreqslantless =       3 0 "E061 \relax
-  \Umathchardef\lesseqqslantgtr =      3 0 "E062 \relax
-  \Umathchardef\gtreqqslantless =      3 0 "E063 \relax
   \Umathchardef\nleqqslant =           3 0 "E066 \relax
   \Umathchardef\ngeqqslant =           3 0 "E067 \relax
   \Umathchardef\parallelslant  =       3 0 "E080 \relax
@@ -163,8 +169,8 @@
      \Umathchardef\circledS =       0 0 "24C8 \relax
      \Umathchardef\diagup =         0 0 "27CB \relax
      \Umathchardef\diagdown =       0 0 "27CD \relax
-     \Umathchardef\lvertneqq =      3 0 "E027 \relax
-     \Umathchardef\gvertneqq =      3 0 "E028 \relax
+     \Umathchardef\lvertneqq =      3 0 "E002 \relax
+     \Umathchardef\gvertneqq =      3 0 "E003 \relax
      \Umathchardef\varsubsetneq =   3 0 "E006 \relax
      \Umathchardef\varsupsetneq =   3 0 "E007 \relax
      \Umathchardef\varsubsetneqq =  3 0 "E015 \relax
