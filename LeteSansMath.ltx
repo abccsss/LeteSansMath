@@ -1,6 +1,6 @@
-\DocumentMetadata{pdfstandard=A-2b, lang=en-GB}
+\DocumentMetadata{pdfstandard={UA-2,A-4F}, lang=en-GB}
 \documentclass[a4paper,12pt]{scrartcl}
-
+\def\extrasenglish{} % bug fix (waiting for varioref 1.6j)
 \usepackage{mathtools, array, varioref}
 \usepackage[british]{babel}
 %\usepackage[default,defaultsans]{lato}
@@ -50,7 +50,7 @@
 \author{Chenjing Bu --- Daniel Flipo\\
         \url{https://github.com/abccsss/LeteSansMath}}
 
-\newcommand*{\version}{0.61}
+\newcommand*{\version}{0.62}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 3pt minus 3pt}
 
@@ -61,8 +61,12 @@
 
 \LAotf{} is an OpenType maths font
 meant to be used with the Lato fonts, or other sans-serif text fonts.
-It requires LuaTeX or XeTeX as engine and the \pkg{unicode-math}
-package\footnote{Please read the documentation \file{unicode-math.pdf}.}.
+
+The following documentation is meant for LuaLaTeX or XeLaTeX together with
+the \pkg{unicode-math} package%
+\footnote{Please read the documentation \file{unicode-math.pdf}.},
+but informations about valid CharacterVariants, StylisticSets, etc. may
+be of interest for users of other Unicode formats (ConTeXt, Typst).
 
 Please note that the current version (\version) is \emph{experimental,
 do expect metrics and glyphs to change} until version 1.0 is reached.
@@ -137,8 +141,8 @@ as maths font and does a bit more:
   \pkg{latexsym} are loaded and issues warnings in case they are;
 \item it provides aliases for glyphs named differently in Unicode, so that
   all \pkg{latexsym} or AMS commands are also available;
-\item it defines specific maths characters like \showmchar{BbbDelta},
-  \showmchar{parallelslant},
+\item it defines specific maths characters like \showmchar{smallsetminus},
+  \showmchar{BbbDelta}, \showmchar{parallelslant},
   \showmchar{shortparallelslant}, etc.;
 \item it provides an option \opt{tight} which reduces spacing
   (\cmd{thinmuskip}, \cmd{medmuskip} and \cmd{thickmuskip}) in maths mode.
@@ -289,7 +293,10 @@ and $\varphi$ instead of $\epsilon$ and $\phi$, you can add option
       cv08 & $\sigma$      & $\varsigma$      & \cmd{sigma} \\
       cv09 & $\theta$      & $\vartheta$      & \cmd{theta} \\
       cv10 & $\Theta$      & $\varTheta$      & \cmd{Theta}\\
-      cv11 & $g$           & $\mitvarg$       & g \\
+      cv11 & $g$           & $\mitvarg$       & \texttt{g} \\
+      cv12 & $l$           & $\mitvarl$       & \texttt{l} \\
+      cv13 & $l$           & $\mscrl$         & \texttt{l} \\
+      cv14 & $0$           & $\mupvarzero$    & \texttt{0} \\
     \hline
   \end{tabular}
 \end{table}
@@ -400,6 +407,7 @@ into their smaller variants, see table~\vref{ss05}.
     \hline
       \cmd{in}               & $\in$               & $\smallin$ \\
       \cmd{ni}               & $\ni$               & $\smallni$ \\
+      \cmd{setminus}         & $\setminus$         & $\smallsetminus$ \\
       \cmd{mid}              & $\mid$              & $\shortmid$ \\
       \cmd{nmid}             & $\nmid$             & $\nshortmid$ \\
       \cmd{parallel}         & $\parallel$         & $\shortparallel$ \\
@@ -690,44 +698,36 @@ A wide range of extensible vertical delimiters is provided:
   and bold italic via the \verb+\symit{}+, \verb+\symup{}+, \verb+\symbf{}+
   and \verb+\symbfit{}+ commands.
 
+\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]
 \item Calligraphic alphabet (\cmd{symscr} or \cmd{symcal} command)%
-  \footnote{See section~\ref{ssection-ss} for alternate shapes:
-  $\symcal{ABCDEF}$ and $\symbfcal{ABCDEF}$.},
-  uppercase only:
+  \footnote{See section~\ref{ssection-ss} if you need both shapes.},
+  uppercase%
+  \footnote{Lowercase letters $\symscr{eglo}, \symscr{r}, \symbfscr{lr}$
+    (Griffith’s curly r, regular and bold) are also provided.}:\\
+  $\symscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ, \symscr{eglor}}$\\
+  $\symcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
+  also in boldface (\cmd{symbfscr}, or \cmd{symbfcal} command):\\
+  $\symbfscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ, \symbfscr{lr}}$\\
+  $\symbfcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
+  \setmathfont{LeteSansMath}
 
-  $\symscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
-
-  \addtocounter{footnote}{-1}
-  also in boldface (\cmd{symbfscr}, or \cmd{symbfcal} command)\footnotemark:
-
-  $\symbfscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
-
-\item Blackboard-bold alphabet (\cmd{symbb} or \cmd{mathbb} command):
-
+\item Blackboard-bold alphabet (\cmd{symbb} command):\\
   $\symbb{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
   $\symbb{abcdefghijklmnopqrstuvwxyz\quad 0123456789}$
 
 \item Fraktur alphabet is borrowed from Latin Modern, medium and bold
-  (\cmd{symfrak}, or \cmd{symbffrak} commands):
-
+  (\cmd{symfrak}, or \cmd{symbffrak} commands):\\
   $\symfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ\; abcdefghijklmnopqrstuvwxyz}$\\
   $\symbffrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
   \hphantom{$\symfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ\;}$}%
-    $\symbffrak{abcdefghijklmnopqrstuvwxyz}$
-
-  but this can overwritten, i.e.
-
+    $\symbffrak{abcdefghijklmnopqrstuvwxyz}$\\
+  but this can overwritten, i.e.\\
 \verb+\setmathfont{Asana-Math.otf}[range=frak,Scale=MatchUppercase]+\\
 \verb+$\symfrak{ABCDEFGHIJKL...XYZ abcdefghijkl...xyz}$+
 
-%\verb+\setmathfont{Asana-Math.otf}[range=frak,Scale=MatchUppercase]+\\
-%\verb+$\symfrak{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
-
-\item Typewriter alphabet is sans-serif: $\symtt{0123456789}$
-
-  $\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$
-
-but it can be borrowed from  another maths font.
+\item Typewriter alphabet is sans-serif: $\symtt{0123456789}$\\
+  $\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$\\
+but it can be borrowed from  another maths font.\\
 
 %\verb+\setmathfont{STIXTwoMath-Regular.otf}[range=tt,+\\
 %\verb+                                      Scale=MatchUppercase]+\\
@@ -736,16 +736,6 @@ but it can be borrowed from  another maths font.
 %\verb+\setmathfont{STIXTwoMath-Regular.otf}[range=tt,Scale=MatchUppercase]+\\
 %\verb+$\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
 \end{itemize}
-
-Like Latin Modern, \pkg{lete-sans-math} provides only four lowercase Latin
-letters in script (or calligraphic) shape: $\mscre$, $\mscrg$, $\ell$,
-$\mscro$ (\verb+\mscre+, \verb+\mscrg+, \verb+\ell+, \verb+\mscro+).
-
-All others (range \verb+"1D4B6+ to \verb+"1D4CF+) have to be borrowed
-from another maths font if needed, i.e.
-
-\verb+\setmathfont{LibertinusMath-Regular.otf}%+\\
-\verb+            [range="1D4B6-"1D4CF, Scale=MatchLowercase]+
 
 \subsection{Bold variant}
 

@@ -1,20 +1,11 @@
 \NeedsTeXFormat{LaTeX2e}[2022/06/01]
-\def\fileversion{0.61}
-\def\filedate{2026-03-22}
+\def\fileversion{0.62}
+\def\filedate{2026-08-24}
 \ProvidesPackage{lete-sans-math}[\filedate\space\fileversion]
 
 % Ensure luatex or xetex engine
 \RequirePackage{iftex}[2019/10/24]
 \RequireTUTeX
-\RequirePackage{unicode-math}
-
-\newopentypefeature{Style}{mathcal}{+ss01}
-\newopentypefeature{Style}{leqslant}{+ss04}
-\newopentypefeature{Style}{smaller}{+ss05}
-\newopentypefeature{Style}{subsetneq}{+ss06}
-\newopentypefeature{Style}{parallelslant}{+ss07}
-\newopentypefeature{Style}{upint}{+ss08}
-\newopentypefeature{Style}{vertneg}{+ss09}
 
 \newtoks\LeteMtoks
 \newtoks\LeteScale
@@ -30,6 +21,7 @@
 % Package options:
 \DeclareKeys
   {
+   lum.if                = Lete@lum                                   ,
    tight.if              = Lete@tight                                 ,
    loose.code            = \Lete@tightfalse                           ,
    fulloldstyle.code     = \Letestore@KV@Option{Numbers}{OldStyle}    ,
@@ -49,6 +41,21 @@
 %
 \ProcessKeyOptions
 %
+\ifxetex  \RequirePackage{unicode-math} \Lete@lumfalse\fi
+\ifluatex
+  \ifLete@lum \RequirePackage{fontspec,lua-unicode-math}
+  \else       \RequirePackage{unicode-math}
+  \fi
+\fi
+%
+\newopentypefeature{Style}{mathcal}{+ss01}
+\newopentypefeature{Style}{leqslant}{+ss04}
+\newopentypefeature{Style}{smaller}{+ss05}
+\newopentypefeature{Style}{subsetneq}{+ss06}
+\newopentypefeature{Style}{parallelslant}{+ss07}
+\newopentypefeature{Style}{upint}{+ss08}
+\newopentypefeature{Style}{vertneg}{+ss09}
+%
 % Math fonts: LeteSansMath.otf, LeteSansMath-Bold.otf.
 % Following Joseph Wright in https://tex.stackexchange.com/questions/451
 \Letestore@KV@Option{BoldFont}{LeteSansMath-Bold.otf}
@@ -64,19 +71,15 @@
   \edef\temp{%
     \endgroup
     \ifLete@textrm\else
-      \noexpand\setmathfontface\noexpand\mathrm{Lato-Regular.ttf}%
-        [\unexpanded\expandafter{\the\LeteScale}]%
-    \fi
-    \ifLete@textit\else
-      \noexpand\setmathfontface\noexpand\mathit{Lato-Italic.ttf}%
+      \noexpand\setmathrm{Lato-Regular.ttf}%
         [\unexpanded\expandafter{\the\LeteScale}]%
     \fi
     \ifLete@textbf\else
-      \noexpand\setmathfontface\noexpand\mathbf{Lato-Bold.ttf}%
+      \noexpand\setboldmathrm{Lato-Bold.ttf}%
         [\unexpanded\expandafter{\the\LeteScale}]%
     \fi
     \ifLete@textsf\else
-      \noexpand\setmathfontface\noexpand\mathsf{Lato-Regular.ttf}%
+      \noexpand\setmathsf{Lato-Regular.ttf}%
         [\unexpanded\expandafter{\the\LeteScale}]%
     \fi
   }
@@ -87,144 +90,161 @@
   \medmuskip=2.5mu plus 1mu minus 2.5mu
   \thickmuskip=3.5mu plus 2.5mu
 \fi
-
+%
+%  For AMS symbols with lua-unicode-math.
+\ifLete@lum
+  \RequirePackage{amssymb}
+\fi
+%
+% Missing Math symbols definitions
+\newcount\Lete@fam
 \AtBeginDocument{%
-  % LeteSansMath specific
+  \ifluatex \Lete@fam=\Umathcharfam"30 \fi
+  % For both unicode-math and lua-unicode-math:
   % \Umathchardef\<cmd> = <math type> <family> <slot>
-  % <math type> : \mathord=0 \mathrel=3 ; <family>=0
-  \Umathchardef\lesssimslant =         3 0 "E004 \relax
-  \Umathchardef\gtrsimslant =          3 0 "E005 \relax
-  \Umathchardef\simslantless =         3 0 "E011 \relax
-  \Umathchardef\simslantgtr =          3 0 "E012 \relax
-  \Umathchardef\lesseqslantgtr =       3 0 "E00D \relax
-  \Umathchardef\gtreqslantless =       3 0 "E00E \relax
-  \Umathchardef\lesseqqslantgtr =      3 0 "E017 \relax
-  \Umathchardef\gtreqqslantless =      3 0 "E018 \relax
-  \Umathchardef\smteslant =            0 0 "E013 \relax
-  \Umathchardef\lateslant =            0 0 "E014 \relax
-  \Umathchardef\vertnotin =            0 0 "E020 \relax
-  \Umathchardef\vertnni =              0 0 "E021 \relax
-  \Umathchardef\vertnsim =             0 0 "E022 \relax
-  \Umathchardef\vertnsimeq =           0 0 "E023 \relax
-  \Umathchardef\vertncong =            0 0 "E024 \relax
-  \Umathchardef\vertne =               0 0 "E025 \relax
-  \Umathchardef\vertnequiv =           0 0 "E026 \relax
-  \Umathchardef\vertnasymp =           0 0 "E029 \relax
-  \Umathchardef\vertnless =            0 0 "E02A \relax
-  \Umathchardef\vertngtr =             0 0 "E02B \relax
-  \Umathchardef\vertnleq =             0 0 "E02C \relax
-  \Umathchardef\vertngeq =             0 0 "E02D \relax
-  \Umathchardef\vertnlesssim =         0 0 "E02E \relax
-  \Umathchardef\vertngtrsim =          0 0 "E02F \relax
-  \Umathchardef\vertnlessgtr =         0 0 "E030 \relax
-  \Umathchardef\vertngtrless =         0 0 "E031 \relax
-  \Umathchardef\vertnprec  =           0 0 "E032 \relax
-  \Umathchardef\vertnsucc =            0 0 "E033\relax
-  \Umathchardef\vertnsubset =          0 0 "E034 \relax
-  \Umathchardef\vertnsupset =          0 0 "E035 \relax
-  \Umathchardef\vertnsubseteq =        0 0 "E036\relax
-  \Umathchardef\vertnsupseteq =        0 0 "E037 \relax
-  \Umathchardef\vertnpreccurlyeq =     0 0 "E038 \relax
-  \Umathchardef\vertnsucccurlyeq =     0 0 "E039\relax
-  \Umathchardef\vertntrianglelefteq =  0 0 "E03A \relax
-  \Umathchardef\vertntrianglerighteq = 0 0 "E03B \relax
-  \Umathchardef\mbfimath =             0 0 "E041 \relax
-  \Umathchardef\mbfjmath =             0 0 "E042 \relax
-  \Umathchardef\mbfdotlessi =          0 0 "E043 \relax
-  \Umathchardef\mbfdotlessj =          0 0 "E044 \relax
-  \Umathchardef\mithbar =              0 0 "E048 \relax
-  \Umathchardef\mupvarg =              0 0 "E04B \relax
-  \Umathchardef\mbfvarg =              0 0 "E04C \relax
-  \Umathchardef\mitvarg =              0 0 "E04D \relax
-  \Umathchardef\mbfitvarg =            0 0 "E04E \relax
-  \Umathchardef\varemptyset =          0 0 "E04F \relax
-  \Umathchardef\BbbDelta =             0 0 "E050 \relax
-  \Umathchardef\BbbTheta =             0 0 "E051 \relax
-  \Umathchardef\BbbLambda =            0 0 "E052 \relax
-  \Umathchardef\BbbXi =                0 0 "E053 \relax
-  \Umathchardef\BbbSigma =             0 0 "E054 \relax
-  \Umathchardef\BbbPhi =               0 0 "E055 \relax
-  \Umathchardef\BbbPsi =               0 0 "E056 \relax
-  \Umathchardef\BbbOmega =             0 0 "E057 \relax
-  \Umathchardef\nleqqslant =           3 0 "E066 \relax
-  \Umathchardef\ngeqqslant =           3 0 "E067 \relax
-  \Umathchardef\parallelslant  =       3 0 "E080 \relax
-  \Umathchardef\nparallelslant =       3 0 "E081 \relax
-  \Umathchardef\shortparallelslant =   3 0 "E082 \relax
-  \Umathchardef\nshortparallelslant =  3 0 "E083 \relax
-  \Umathchardef\mapstochar =           3 0 "E08D \relax
-  \Umathchardef\lhook =                3 0 "E08E \relax
-  \Umathchardef\rhook =                3 0 "E08F \relax
+  % <math type> : \mathord=0 \mathbin=2 \mathrel=3 ; <family>=0
+  \protected\def\varpropto{\propto}%
+  \protected\def\thicksim{\sim}%
+  \protected\def\thickapprox{\approx}%
+  \protected\def\smallfrown{\frown}%
+  \protected\def\smallsmile{\smile}%
+  \Umathchardef\circledR =             0 \the\Lete@fam "24C7 \relax
+  \Umathchardef\circledS =             0 \the\Lete@fam "24C8 \relax
+  % LeteSansMath specific
+  \Umathchardef\smallsetminus =        2 \the\Lete@fam "E060 \relax
+  \Umathchardef\shortmid =             3 \the\Lete@fam "E070 \relax
+  \Umathchardef\shortparallel =        3 \the\Lete@fam "E071 \relax
+  \Umathchardef\nshortmid =            3 \the\Lete@fam "E072 \relax
+  \Umathchardef\nshortparallel =       3 \the\Lete@fam "E073 \relax
+  \Umathchardef\lvertneqq =            3 \the\Lete@fam "E002 \relax
+  \Umathchardef\gvertneqq =            3 \the\Lete@fam "E003 \relax
+  \Umathchardef\lesssimslant =         3 \the\Lete@fam "E004 \relax
+  \Umathchardef\gtrsimslant =          3 \the\Lete@fam "E005 \relax
+  \Umathchardef\varsubsetneq =         3 \the\Lete@fam "E006 \relax
+  \Umathchardef\varsupsetneq =         3 \the\Lete@fam "E007 \relax
+  \Umathchardef\lesseqslantgtr =       3 \the\Lete@fam "E00D \relax
+  \Umathchardef\gtreqslantless =       3 \the\Lete@fam "E00E \relax
+  \Umathchardef\simslantless =         3 \the\Lete@fam "E011 \relax
+  \Umathchardef\simslantgtr =          3 \the\Lete@fam "E012 \relax
+  \Umathchardef\smteslant =            3 \the\Lete@fam "E013 \relax
+  \Umathchardef\lateslant =            3 \the\Lete@fam "E014 \relax
+  \Umathchardef\varsubsetneqq =        3 \the\Lete@fam "E015 \relax
+  \Umathchardef\varsupsetneqq =        3 \the\Lete@fam "E016 \relax
+  \Umathchardef\lesseqqslantgtr =      3 \the\Lete@fam "E017 \relax
+  \Umathchardef\gtreqqslantless =      3 \the\Lete@fam "E018 \relax
+  \Umathchardef\varemptyset =          0 \the\Lete@fam "E01D \relax
+  \Umathchardef\mupvarzero =           0 \the\Lete@fam "E01E \relax
+  \Umathchardef\vertnotin =            3 \the\Lete@fam "E020 \relax
+  \Umathchardef\vertnni =              3 \the\Lete@fam "E021 \relax
+  \Umathchardef\vertnsim =             3 \the\Lete@fam "E022 \relax
+  \Umathchardef\vertnsimeq =           3 \the\Lete@fam "E023 \relax
+  \Umathchardef\vertncong =            3 \the\Lete@fam "E024 \relax
+  \Umathchardef\vertne =               3 \the\Lete@fam "E025 \relax
+  \Umathchardef\vertnequiv =           3 \the\Lete@fam "E026 \relax
+  \Umathchardef\vertnasymp =           3 \the\Lete@fam "E029 \relax
+  \Umathchardef\vertnless =            3 \the\Lete@fam "E02A \relax
+  \Umathchardef\vertngtr =             3 \the\Lete@fam "E02B \relax
+  \Umathchardef\vertnleq =             3 \the\Lete@fam "E02C \relax
+  \Umathchardef\vertngeq =             3 \the\Lete@fam "E02D \relax
+  \Umathchardef\vertnlesssim =         3 \the\Lete@fam "E02E \relax
+  \Umathchardef\vertngtrsim =          3 \the\Lete@fam "E02F \relax
+  \Umathchardef\vertnlessgtr =         3 \the\Lete@fam "E030 \relax
+  \Umathchardef\vertngtrless =         3 \the\Lete@fam "E031 \relax
+  \Umathchardef\vertnprec  =           3 \the\Lete@fam "E032 \relax
+  \Umathchardef\vertnsucc =            3 \the\Lete@fam "E033 \relax
+  \Umathchardef\vertnsubset =          3 \the\Lete@fam "E034 \relax
+  \Umathchardef\vertnsupset =          3 \the\Lete@fam "E035 \relax
+  \Umathchardef\vertnsubseteq =        3 \the\Lete@fam "E036 \relax
+  \Umathchardef\vertnsupseteq =        3 \the\Lete@fam "E037 \relax
+  \Umathchardef\vertnpreccurlyeq =     3 \the\Lete@fam "E038 \relax
+  \Umathchardef\vertnsucccurlyeq =     3 \the\Lete@fam "E039 \relax
+  \Umathchardef\vertntrianglelefteq =  3 \the\Lete@fam "E03A \relax
+  \Umathchardef\vertntrianglerighteq = 3 \the\Lete@fam "E03B \relax
+  \Umathchardef\mbfimath =             0 \the\Lete@fam "E041 \relax
+  \Umathchardef\mbfjmath =             0 \the\Lete@fam "E042 \relax
+  \Umathchardef\mbfdotlessi =          0 \the\Lete@fam "E043 \relax
+  \Umathchardef\mbfdotlessj =          0 \the\Lete@fam "E044 \relax
+  \Umathchardef\mithbar =              0 \the\Lete@fam "E048 \relax
+  \Umathchardef\mupvarg =              0 \the\Lete@fam "E04B \relax
+  \Umathchardef\mbfvarg =              0 \the\Lete@fam "E04C \relax
+  \Umathchardef\mitvarg =              0 \the\Lete@fam "E04D \relax
+  \Umathchardef\mbfitvarg =            0 \the\Lete@fam "E04E \relax
+  \Umathchardef\BbbDelta =             0 \the\Lete@fam "E050 \relax
+  \Umathchardef\BbbTheta =             0 \the\Lete@fam "E051 \relax
+  \Umathchardef\BbbLambda =            0 \the\Lete@fam "E052 \relax
+  \Umathchardef\BbbXi =                0 \the\Lete@fam "E053 \relax
+  \Umathchardef\BbbSigma =             0 \the\Lete@fam "E054 \relax
+  \Umathchardef\BbbPhi =               0 \the\Lete@fam "E055 \relax
+  \Umathchardef\BbbPsi =               0 \the\Lete@fam "E056 \relax
+  \Umathchardef\BbbOmega =             0 \the\Lete@fam "E057 \relax
+  \Umathchardef\mbfell =               0 \the\Lete@fam "E05A \relax
+  \Umathchardef\mupvarl =              0 \the\Lete@fam "E05B \relax
+  \Umathchardef\mbfvarl =              0 \the\Lete@fam "E05C \relax
+  \Umathchardef\mitvarl =              0 \the\Lete@fam "E05D \relax
+  \Umathchardef\mbfitvarl =            0 \the\Lete@fam "E05E \relax
+  \Umathchardef\nleqqslant =           3 \the\Lete@fam "E066 \relax
+  \Umathchardef\ngeqqslant =           3 \the\Lete@fam "E067 \relax
+  \Umathchardef\parallelslant  =       3 \the\Lete@fam "E080 \relax
+  \Umathchardef\nparallelslant =       3 \the\Lete@fam "E081 \relax
+  \Umathchardef\shortparallelslant =   3 \the\Lete@fam "E082 \relax
+  \Umathchardef\nshortparallelslant =  3 \the\Lete@fam "E083 \relax
+  \Umathchardef\mapstochar =           3 \the\Lete@fam "E08D \relax
+  \Umathchardef\lhook =                3 \the\Lete@fam "E08E \relax
+  \Umathchardef\rhook =                3 \the\Lete@fam "E08F \relax
+  % For unicode-math only:
+  \ifLete@lum \else
   % amssymb
-  \@ifpackageloaded{amssymb}%
-    {\PackageWarning{lete-sans-math}{%
-       LeteSansMath provides all AMS symbols.\MessageBreak
-       Loading amssymb.sty is not advisable.\MessageBreak
-       Reported}%
-    }%
-    {% AMS Symbols not referenced in unicode-math-table.tex
-     % \Umathchardef\<cmd> = <math type> <family> <slot>
-     % <math type> : \mathord=0 \mathrel=3 ; <family>=0
-     \Umathchardef\circledR =       0 0 "24C7 \relax
-     \Umathchardef\circledS =       0 0 "24C8 \relax
-     \Umathchardef\diagup =         0 0 "27CB \relax
-     \Umathchardef\diagdown =       0 0 "27CD \relax
-     \Umathchardef\lvertneqq =      3 0 "E002 \relax
-     \Umathchardef\gvertneqq =      3 0 "E003 \relax
-     \Umathchardef\varsubsetneq =   3 0 "E006 \relax
-     \Umathchardef\varsupsetneq =   3 0 "E007 \relax
-     \Umathchardef\varsubsetneqq =  3 0 "E015 \relax
-     \Umathchardef\varsupsetneqq =  3 0 "E016 \relax
-     \Umathchardef\shortmid =       3 0 "E070 \relax
-     \Umathchardef\shortparallel =  3 0 "E071 \relax
-     \Umathchardef\nshortmid =      3 0 "E072 \relax
-     \Umathchardef\nshortparallel = 3 0 "E073 \relax
-     \Umathchardef\nleqslant =      3 0 "E076 \relax
-     \Umathchardef\ngeqslant =      3 0 "E077 \relax
-     \Umathchardef\nleqq =          3 0 "E078 \relax
-     \Umathchardef\ngeqq =          3 0 "E079 \relax
-     \Umathchardef\npreceq =        3 0 "E07C \relax
-     \Umathchardef\nsucceq =        3 0 "E07D \relax
-     \Umathchardef\nsubseteqq =     3 0 "E07E \relax
-     \Umathchardef\nsupseteqq =     3 0 "E07F \relax
-     \protected\def\centerdot{\cdotp}%
-     \protected\def\restriction{\upharpoonright}%
-     \protected\def\doteqdot{\Doteq}%
-     \protected\def\doublecup{\Cup}%
-     \protected\def\doublecap{\Cap}%
-     \protected\def\llless{\lll}%
-     \protected\def\gggtr{\ggg}%
-     \protected\def\circlearrowleft{\acwopencirclearrow}%
-     \protected\def\circlearrowright{\cwopencirclearrow}%
-     \protected\def\lozenge{\mdlgwhtlozenge}%
-     \protected\def\blacklozenge{\mdlgblklozenge}%
-     \protected\def\square{\mdlgwhtsquare}%
-     \protected\def\blacksquare{\mdlgblksquare}%
-     \protected\def\dashleftarrow{\leftdasharrow}%
-     \protected\def\dashrightarrow{\rightdasharrow}%
-     \protected\def\ntriangleleft{\nvartriangleleft}%
-     \protected\def\ntriangleright{\nvartriangleright}%
-     \protected\def\varpropto{\propto}%
-     \protected\def\thicksim{\sim}%
-     \protected\def\thickapprox{\approx}%
-     \protected\def\smallsmile{\smile}%
-     \protected\def\smallfrown{\frown}%
-    }%
+    \@ifpackageloaded{amssymb}%
+      {\PackageWarning{lete-sans-math}{%
+         LeteSansMath provides all AMS symbols.\MessageBreak
+         Loading amssymb.sty is not advisable.\MessageBreak
+         Reported}%
+      }%
+      {% AMS Symbols not referenced in unicode-math-table.tex
+       % \Umathchardef\<cmd> = <math type> <family> <slot>
+       % <math type> : \mathord=0 \mathbin=2 \mathrel=3 ; <family>=0
+       \Umathchardef\nleqslant =      3 \the\Lete@fam "E076 \relax
+       \Umathchardef\ngeqslant =      3 \the\Lete@fam "E077 \relax
+       \Umathchardef\nleqq =          3 \the\Lete@fam "E078 \relax
+       \Umathchardef\ngeqq =          3 \the\Lete@fam "E079 \relax
+       \Umathchardef\npreceq =        3 \the\Lete@fam "E07C \relax
+       \Umathchardef\nsucceq =        3 \the\Lete@fam "E07D \relax
+       \Umathchardef\nsubseteqq =     3 \the\Lete@fam "E07E \relax
+       \Umathchardef\nsupseteqq =     3 \the\Lete@fam "E07F \relax
+       \protected\def\centerdot{\vysmblksquare}%
+       \protected\def\restriction{\upharpoonright}%
+       \protected\def\doteqdot{\Doteq}%
+       \protected\def\doublecup{\Cup}%
+       \protected\def\doublecap{\Cap}%
+       \protected\def\llless{\lll}%
+       \protected\def\gggtr{\ggg}%
+       \protected\def\circlearrowleft{\acwopencirclearrow}%
+       \protected\def\circlearrowright{\cwopencirclearrow}%
+       \protected\def\lozenge{\mdlgwhtlozenge}%
+       \protected\def\blacklozenge{\mdlgblklozenge}%
+       \protected\def\square{\mdlgwhtsquare}%
+       \protected\def\blacksquare{\mdlgblksquare}%
+       \protected\def\dashleftarrow{\leftdasharrow}%
+       \protected\def\dashrightarrow{\rightdasharrow}%
+       \protected\def\ntriangleleft{\nvartriangleleft}%
+       \protected\def\ntriangleright{\nvartriangleright}%
+      }%
   % latexsym
-  \@ifpackageloaded{latexsym}%
-    {\PackageWarning{lete-sans-math}{%
-       LeteSansMath provides all LaTeX symbols.\MessageBreak
-       Loading latexsym.sty is not advisable.\MessageBreak
-       Reported}%
-    }%
-    {\protected\def\lhd{\vartriangleleft}%
-     \protected\def\rhd{\vartriangleright}%
-     \protected\def\unlhd{\trianglelefteq}%
-     \protected\def\unrhd{\trianglerighteq}%
-     \protected\def\leadsto{\rightcurvedarrow}%
-     \protected\def\Box{\lgwhtsquare}%
-     \protected\def\Diamond{\mdlgwhtdiamond}%
-    }%
+    \@ifpackageloaded{latexsym}%
+      {\PackageWarning{lete-sans-math}{%
+         LeteSansMath provides all LaTeX symbols.\MessageBreak
+         Loading latexsym.sty is not advisable.\MessageBreak
+         Reported}%
+      }%
+      {\protected\def\lhd{\vartriangleleft}%
+       \protected\def\rhd{\vartriangleright}%
+       \protected\def\unlhd{\trianglelefteq}%
+       \protected\def\unrhd{\trianglerighteq}%
+       \protected\def\leadsto{\rightcurvedarrow}%
+       \protected\def\Box{\lgwhtsquare}%
+       \protected\def\Diamond{\mdlgwhtdiamond}%
+      }%
+\fi
 }
 
 \endinput

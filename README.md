@@ -61,6 +61,16 @@ See the documentation for details.
 
 ## Changes
 
+### v0.62 (2026-08-24)
+
+- Math table fraction parameters tuned.
+- `\setminus` (U+2113) and `\smallsetminus` (U+E060) have now different glyphs.
+- `\mscrl` (U+1D4C1) and `\mbfscrl` (U+1D4F5) added.
+- New CharacterVariants `cv12` and `cv13` provide alternative shapes
+  for the lowercase `l` which might be confused with uppercase `I` or `1`.
+- Glyphs `\mscr` (U+1D4C7) and `\mbfscr` (U+1D4FB) added for Griffith's
+  curly 'r'.
+
 ### v0.61 (2026-03-22)
 
 - Fixed variation selectors (U+FE00 and U+FE01)
