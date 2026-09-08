@@ -61,6 +61,10 @@ See the documentation for details.
 
 ## Changes
 
+### v0.63 (2026-09-08)
+
+- Fixed [#23](https://github.com/abccsss/LeteSansMath/issues/23).
+
 ### v0.62 (2026-08-24)
 
 - Math table fraction parameters tuned.

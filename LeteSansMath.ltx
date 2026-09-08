@@ -50,7 +50,7 @@
 \author{Chenjing Bu --- Daniel Flipo\\
         \url{https://github.com/abccsss/LeteSansMath}}
 
-\newcommand*{\version}{0.62}
+\newcommand*{\version}{0.63}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{12pt plus 3pt minus 3pt}
 
@@ -330,7 +330,7 @@ glyphs for families of maths symbols.
 \ttbold{StylisticSet=1}, alias%
 \footnote{These \texttt{Style} aliases are provided by
 \file{lete-sans-math.sty}.}
-\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]
+\setmathfont{LeteSansMath.otf}[range={cal,bfcal},StylisticSet=1]
 \ttbold{Style=mathcal} is new to version~0.60.
 It forces commands \verb|\mathcal{}| and \verb|\mathscr{}|
 to print $\mathcal{ABC}$ (former shape) instead of $\mathscr{ABC}$
@@ -345,8 +345,8 @@ respectively, you can use \pkg{unicode-math}’s option \verb|range| this way%
 Variation Selectors U+FE00 and U+FE01 to switch between `cal’ and `scr’
 variants but these selectors are already implemented in \LAotf.}%
 :\\
-\verb|\setmathfont{LeteSansMath}[|\textit{your options}\verb|]|\\
-\verb|\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]|\\
+\verb|\setmathfont{LeteSansMath.otf}[|\textit{your options}\verb|]|\\
+\verb|\setmathfont{LeteSansMath.otf}[range={cal,bfcal},StylisticSet=1]|\\
 Both lines are mandatory: the first one loads {\LAotf} while the
 second one modifies \verb|\mathcal| and \verb|\symcal| commands’ output.
 
@@ -691,25 +691,23 @@ A wide range of extensible vertical delimiters is provided:
 \subsection{Mathematical alphabets}
 \label{ssec-math-alphabets}
 
-\setmathfont{LeteSansMath}
-\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]
 \begin{itemize}
 \item  All Latin and Greek characters are available in italic, upright, bold
   and bold italic via the \verb+\symit{}+, \verb+\symup{}+, \verb+\symbf{}+
   and \verb+\symbfit{}+ commands.
 
-\setmathfont{LeteSansMath}[range={cal,bfcal},StylisticSet=1]
+\setmathfont{LeteSansMath.otf}
+\setmathfont{LeteSansMath.otf}[range={cal,bfcal},StylisticSet=1]
 \item Calligraphic alphabet (\cmd{symscr} or \cmd{symcal} command)%
   \footnote{See section~\ref{ssection-ss} if you need both shapes.},
   uppercase%
-  \footnote{Lowercase letters $\symscr{eglo}, \symscr{r}, \symbfscr{lr}$
+  \footnote{Lowercase letters $\symscr{eglo},\symscr{r},\symbfscr{r}$
     (Griffith’s curly r, regular and bold) are also provided.}:\\
-  $\symscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ, \symscr{eglor}}$\\
+  $\symscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ}, \symscr{eglor}$\\
   $\symcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
   also in boldface (\cmd{symbfscr}, or \cmd{symbfcal} command):\\
   $\symbfscr{ABCDEFGHIJKLMNOPQRSTUVWXYZ, \symbfscr{lr}}$\\
   $\symbfcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$
-  \setmathfont{LeteSansMath}
 
 \item Blackboard-bold alphabet (\cmd{symbb} command):\\
   $\symbb{ABCDEFGHIJKLMNOPQRSTUVWXYZ}$\\
@@ -727,14 +725,7 @@ A wide range of extensible vertical delimiters is provided:
 
 \item Typewriter alphabet is sans-serif: $\symtt{0123456789}$\\
   $\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$\\
-but it can be borrowed from  another maths font.\\
-
-%\verb+\setmathfont{STIXTwoMath-Regular.otf}[range=tt,+\\
-%\verb+                                      Scale=MatchUppercase]+\\
-%\verb+$\symtt{ABCDE...XYZ abcde...xyz}$+
-
-%\verb+\setmathfont{STIXTwoMath-Regular.otf}[range=tt,Scale=MatchUppercase]+\\
-%\verb+$\symtt{ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz}$+
+but it can be borrowed from  another maths font.
 \end{itemize}
 
 \subsection{Bold variant}
